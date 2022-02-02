@@ -24,29 +24,24 @@ class UsuariosModelo
     {
         if ($item != null) {
             $stmt = Conexion::conectar()->prepare("SELECT
-            mrms_usuarios.idUsuario, 
-            mrms_usuarios.perfil, 
-            mrms_perfil.descPerfil, 
-            mrms_usuarios.estado, 
-            mrms_estusuario.descEstadoUs, 
-            mrms_usuarios.dni, 
-            mrms_usuarios.nombres, 
-            mrms_usuarios.apellidos, 
-            mrms_usuarios.cuenta, 
-            mrms_usuarios.correo, 
-            mrms_usuarios.clave
+            usuarios.idUsuario, 
+            usuarios.idRol, 
+            roles.nombreRol, 
+            usuarios.dni, 
+            usuarios.nombres, 
+            usuarios.apellidos, 
+            usuarios.correo, 
+            usuarios.login, 
+            usuarios.clave, 
+            usuarios.estado
         FROM
-            mrms_usuarios
+            usuarios
             INNER JOIN
-            mrms_perfil
+            roles
             ON 
-                mrms_usuarios.perfil = mrms_perfil.idPerfil
-            INNER JOIN
-            mrms_estusuario
-            ON 
-                mrms_usuarios.estado = mrms_estusuario.idEstadoUs
+                usuarios.idRol = roles.idRol
         WHERE $item = :$item 
-            ORDER BY mrms_usuarios.perfil ASC");
+            ORDER BY usuarios.idRol ASC");
             $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetch();

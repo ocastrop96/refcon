@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 02-02-2022 a las 01:28:45
+-- Tiempo de generación: 02-02-2022 a las 21:08:29
 -- Versión del servidor: 5.7.33
 -- Versión de PHP: 7.4.25
 
@@ -20,6 +20,63 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `db-refcon`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Perfiles_Users` ()   SELECT
+	roles.idRol, 
+	roles.nombreRol, 
+	roles.descripcion, 
+	roles.estadoRol
+FROM
+	roles$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Usuarios` ()   SELECT
+	usuarios.idUsuario,
+	usuarios.idRol,
+	roles.nombreRol,
+	usuarios.dni,
+	usuarios.nombres,
+	usuarios.apellidos,
+	usuarios.correo,
+	usuarios.login,
+	usuarios.clave,
+	usuarios.estado,
+	date_format(usuarios.fechaAlta,'%d/%m/%Y') as fechaAlta 
+FROM
+	usuarios
+	INNER JOIN roles ON usuarios.idRol = roles.idRol 
+ORDER BY
+	usuarios.idRol ASC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LoginUsuario` (IN `_cuenta` VARCHAR(50))   SELECT
+	usuarios.idUsuario, 
+	usuarios.idRol, 
+	roles.nombreRol, 
+	usuarios.dni, 
+	usuarios.nombres, 
+	usuarios.apellidos, 
+	usuarios.correo, 
+	usuarios.login, 
+	usuarios.clave, 
+	usuarios.estado, 
+	usuarios.intentos
+FROM
+	usuarios
+	INNER JOIN
+	roles
+	ON 
+		usuarios.idRol = roles.idRol
+	WHERE login = _cuenta$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Registrar_Intentos` (IN `_idUsuario` INT(11))   UPDATE usuarios 
+SET intentos = intentos + 1 
+WHERE
+	idUsuario = _idUsuario$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -10641,7 +10698,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`idRol`, `nombreRol`, `descripcion`, `estadoRol`) VALUES
-(1, 'Administrador', 'Administrador total de sistemas', 1);
+(1, 'Administrador', 'Administrador total de sistemas', 1),
+(2, 'Jefe', 'Jefe de Departamento u oficina', 1),
+(3, 'Registrador', 'Registrador de Referencias', 1);
 
 -- --------------------------------------------------------
 
@@ -11009,18 +11068,20 @@ CREATE TABLE `usuarios` (
   `dni` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `nombres` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `apellidos` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `correo` text COLLATE utf8_bin,
   `login` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `clave` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
-  `fechaAlta` timestamp NULL DEFAULT NULL
+  `fechaAlta` timestamp NULL DEFAULT NULL,
+  `intentos` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `idRol`, `dni`, `nombres`, `apellidos`, `login`, `clave`, `estado`, `fechaAlta`) VALUES
-(1, 1, '10000000', 'Admin', 'Total', 'admin', '$2a$07$usesomesillystringforeVF6hLwtgsUBAmUN4cGEd8tYF74gSHRW', 1, '2022-02-01 21:15:03');
+INSERT INTO `usuarios` (`idUsuario`, `idRol`, `dni`, `nombres`, `apellidos`, `correo`, `login`, `clave`, `estado`, `fechaAlta`, `intentos`) VALUES
+(1, 1, '10000000', 'Admin', 'Total', 'ocastrop@hnseb.gob.pe', 'admin', '$2a$07$usesomesillystringforeVF6hLwtgsUBAmUN4cGEd8tYF74gSHRW', 1, '2022-02-01 21:15:03', 0);
 
 --
 -- Índices para tablas volcadas
@@ -11142,7 +11203,7 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sexousuario`

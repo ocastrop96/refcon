@@ -1,8 +1,8 @@
 <aside class="main-sidebar elevation-4 sidebar-light-success">
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
-        <img src="public/views/resources/img/mrms-logo.png" alt="MRMS-logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-bolder">MRMS-Web</span>
+        <img src="public/views/resources/img/refcon-logo.png" alt="MRMS-logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-bolder">REFCON-Web</span>
     </a>
 
     <div class="sidebar">
@@ -38,99 +38,22 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-header">Personal</li>
-                    <li class="nav-item">
-                        <a href="empleados" class="nav-link">
-                            <i class="nav-icon fas fa-people-carry"></i>
-                            <p>
-                                Empleados
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="cargos" class="nav-link">
-                            <i class="nav-icon fas fa-business-time"></i>
-                            <p>
-                                Cargos
-                            </p>
-                        </a>
-                    </li>
-    
                     <li class="nav-header">Gestión</li>
                     <li class="nav-item">
-                        <a href="licencias" class="nav-link">
+                        <a href="referencias" class="nav-link">
                             <i class="nav-icon fas fa-file-invoice"></i>
                             <p>
-                                Licencias
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="salud-ocupacional" class="nav-link">
-                            <i class="nav-icon fas fa-user-md"></i>
-                            <p>
-                                Salud Ocupacional
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Reportes</li>
-                    <li class="nav-item">
-                        <a href="reporte-empleado" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                Empleado
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="reporte-coordinador" class="nav-link">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <p>
-                                Coordinador
+                                Referencias
                             </p>
                         </a>
                     </li>';
                 } elseif ($_SESSION["loginPerfilMR"] == 2) {
-                    echo '<li class="nav-header">Personal</li>
+                    echo '<li class="nav-header">Gestión</li>
                     <li class="nav-item">
-                        <a href="empleados" class="nav-link">
-                            <i class="nav-icon fas fa-people-carry"></i>
-                            <p>
-                                Empleados
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Gestión</li>
-                    <li class="nav-item">
-                        <a href="licencias" class="nav-link">
+                        <a href="referencias" class="nav-link">
                             <i class="nav-icon fas fa-file-invoice"></i>
                             <p>
-                                Licencias
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="salud-ocupacional" class="nav-link">
-                            <i class="nav-icon fas fa-user-md"></i>
-                            <p>
-                                Salud Ocupacional
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Reportes</li>
-                    <li class="nav-item">
-                        <a href="reporte-empleado" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
-                        <p>
-                            Empleado
-                        </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="reporte-coordinador" class="nav-link">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <p>
-                                Coordinador
+                                Referencias
                             </p>
                         </a>
                     </li>';
@@ -162,12 +85,12 @@
                         </a>
                     </li>';
                 } else {
-                    echo '<li class="nav-header">Personal</li>
+                    echo '<li class="nav-header">Referencias</li>
                     <li class="nav-item">
-                        <a href="empleados" class="nav-link">
-                            <i class="nav-icon fas fa-people-carry"></i>
+                        <a href="Referencias" class="nav-link">
+                            <i class="nav-icon fas fa-file-invoice"></i>
                             <p>
-                                Empleados
+                                Referencias
                             </p>
                         </a>
                     </li>

@@ -12,16 +12,16 @@ class UsuariosControlador
                 $encriptaPass = crypt($_POST["usuarioPassMR"], '$2a$07$usesomesillystringforsalt$');
 
                 $rptLogin = UsuariosModelo::mdlLoginUsuario($usuario);
-                if ($rptLogin["cuenta"] == $_POST["usuarioLogMR"] && $rptLogin["clave"] == $encriptaPass) {
-                    // Validación de habilitación
+                if ($rptLogin["login"] == $_POST["usuarioLogMR"] && $rptLogin["clave"] == $encriptaPass) {
+                    // Validación de habilitaciónW
                     if ($rptLogin["estado"] == 1) {
                         // VALIDANDO INTENTOS REGISTRADOS
                         if ($rptLogin["intentos"] <= 3) {
-                            $_SESSION["loginMRSystem"] = "ok";
+                            $_SESSION["loginGRSystem"] = "ok";
                             $_SESSION["loginIdMR"] = $rptLogin["idUsuario"];
                             $_SESSION["loginCardMR"] = $rptLogin["dni"];
-                            $_SESSION["loginPerfilMR"] = $rptLogin["perfil"];
-                            $_SESSION["loginPerfilDescMR"] = $rptLogin["descPerfil"];
+                            $_SESSION["loginPerfilMR"] = $rptLogin["idRol"];
+                            $_SESSION["loginPerfilDescMR"] = $rptLogin["nombreRol"];
                             $_SESSION["loginNombresMR"] = $rptLogin["nombres"];
 
                             echo '<script>
@@ -66,7 +66,7 @@ class UsuariosControlador
                                  </script>';
                     }
                     // Validación de habilitación
-                } elseif ($encriptaPass != $rptLogin["clave"]) {
+                } elseif ($encriptaPass != $rptLogin["login"]) {
                     $id = $rptLogin["idUsuario"];
                     $registroIntentos = UsuariosModelo::mdlRegistroIntentos($id);
                     $mensajeIntentos = "";

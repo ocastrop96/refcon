@@ -18,12 +18,12 @@ class DatatableUsuarios
         for ($i = 0; $i < count($usuarios); $i++) {
 
             // Perfil con iconos
-            if ($usuarios[$i]["perfil"] == 1) {
-                $perfil = "<i class='fas fa-user-cog'></i>&nbsp" . $usuarios[$i]["descPerfil"] . "";
-            } else if ($usuarios[$i]["perfil"] == 2) {
-                $perfil = "<i class='fas fa-user-tie'></i>&nbsp" . $usuarios[$i]["descPerfil"] . "";
+            if ($usuarios[$i]["idRol"] == 1) {
+                $perfil = "<i class='fas fa-user-cog'></i>&nbsp" . $usuarios[$i]["nombreRol"] . "";
+            } else if ($usuarios[$i]["idRol"] == 2) {
+                $perfil = "<i class='fas fa-user-tie'></i>&nbsp" . $usuarios[$i]["nombreRol"] . "";
             } else {
-                $perfil = "<i class='fas fa-hospital-user'></i>&nbsp" . $usuarios[$i]["descPerfil"] . "";
+                $perfil = "<i class='fas fa-hospital-user'></i>&nbsp" . $usuarios[$i]["nombreRol"] . "";
             }
             // Botones de Estado
             if (($usuarios[$i]["estado"] != 2)) {
@@ -41,7 +41,7 @@ class DatatableUsuarios
                 "' . $usuarios[$i]["apellidos"] . '",
                 "' . $perfil . '",
                 "' . $usuarios[$i]["correo"] . '",
-                "' . $usuarios[$i]["cuenta"] . '",
+                "' . $usuarios[$i]["login"] . '",
                 "' . $usuarios[$i]["fechaAlta"] . '",
                 "' . $estado . '",
                 "' . $botones . '"

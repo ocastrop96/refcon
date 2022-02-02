@@ -8,7 +8,7 @@ class ajaxUsuarios
     public $validarCuentaLog;
     public function ajaxCuentaLogin()
     {
-        $item = "cuenta";
+        $item = "login";
         $valor = $this->validarCuentaLog;
         $respuesta = UsuariosControlador::ctrListarUsuarios($item, $valor);
 

@@ -85,7 +85,7 @@ session_start();
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php
-    if (isset($_SESSION["loginMRSystem"]) && $_SESSION["loginMRSystem"] == "ok") {
+    if (isset($_SESSION["loginGRSystem"]) && $_SESSION["loginGRSystem"] == "ok") {
         echo '<div class="wrapper">';
         include('pages/header.php');
         include('pages/menu.php');
@@ -94,13 +94,7 @@ session_start();
             if (
                 $_GET["ruta"] == "dashboard" ||
                 $_GET["ruta"] == "usuarios" ||
-                $_GET["ruta"] == "empleados" ||
-                $_GET["ruta"] == "cargos" ||
-                $_GET["ruta"] == "licencias" ||
-                $_GET["ruta"] == "salud-ocupacional" ||
-                $_GET["ruta"] == "reporte-empleado" ||
-                $_GET["ruta"] == "reporte-coordinador" ||
-                $_GET["ruta"] == "reporte-responsable" ||
+                $_GET["ruta"] == "referencias" ||
                 $_GET["ruta"] == "signout"
             ) {
                 include "pages/" . $_GET["ruta"] . ".php";

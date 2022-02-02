@@ -1,8 +1,8 @@
 <div class="login-page">
     <div class="login-box">
-        <div class="card card-outline card-info">
+        <div class="card card-outline card-success">
             <div class="login-logo">
-                <img src="public/views/resources/img/mrms-logo.png" class="img-responsive" style="padding:10px 50px 0px 50px">
+                <img src="public/views/resources/img/refcon-logo.png" class="img-responsive" style="padding:10px 50px 0px 50px">
             </div>
             <div class="card-body">
                 <p class="login-box-msg font-weight-bold h5 text-secondary">Sistema de Gestión de Referencias - HNSEB <br><span class="font-italic h6">v.2022.0201</span></p>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8 ml-5">
-                            <button type="submit" class="btn btn-info btn-block btn-flat rounded" id="btnLoginMR"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+                            <button type="submit" class="btn btn-success btn-block btn-flat rounded" id="btnLoginMR"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
                         </div>
                     </div>
                     <?php

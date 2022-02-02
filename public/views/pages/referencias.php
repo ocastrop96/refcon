@@ -11,12 +11,12 @@ if ($_SESSION["loginPerfilMR"] == 4) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h4><strong>Personal:. Empleados</strong></h4>
+          <h4><strong>Gestión:. Referencias</strong></h4>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Personal</a></li>
-            <li class="breadcrumb-item active">Empleados</li>
+            <li class="breadcrumb-item"><a href="#">Gestión</a></li>
+            <li class="breadcrumb-item active">Referencias</li>
           </ol>
         </div>
       </div>
@@ -25,13 +25,13 @@ if ($_SESSION["loginPerfilMR"] == 4) {
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Módulo de Empleados &nbsp;<i class="fas fa-people-carry"></i></h3>
+        <h3 class="card-title">Módulo de Carga de Referencias &nbsp;<i class="fas fa-file-invoice"></i></h3>
       </div>
       <div class="card-body">
-        <button type="btn" class="btn btn-secondary" data-toggle="modal" data-target="#modal-registrar-empleado"><i class="fas fa-people-carry"></i> Registrar Empleado
+        <button type="btn" class="btn btn-secondary" data-toggle="modal" data-target="#modal-cargar-referencia"><i class="fas fa-file-invoice"></i> Cargar Referencia
         </button>
       </div>
-      <div class="card-body">
+      <!-- <div class="card-body">
         <table id="datatableEmpleadosMR" class="table table-bordered table-hover dt-responsive datatableEmpleadosMR">
           <thead>
             <tr>
@@ -46,17 +46,17 @@ if ($_SESSION["loginPerfilMR"] == 4) {
             </tr>
           </thead>
         </table>
-      </div>
+      </div> -->
     </div>
   </section>
 </div>
 <!-- Registro de Diagnóstico -->
-<div id="modal-registrar-empleado" class="modal fade" role="dialog" aria-modal="true" style="padding-right: 17px;">
-  <div class="modal-dialog modal-lg">
+<div id="modal-cargar-referencia" class="modal fade" role="dialog" aria-modal="true" style="padding-right: 17px;">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <form action="" role="form" id="formRegEmp" method="post">
         <div class="modal-header text-center bg-olive" style="color: white">
-          <h4 class="modal-title">Registrar Empleado&nbsp; <i class="fas fa-people-carry"></i></h4>
+          <h4 class="modal-title">Carga Referencias&nbsp; <i class="fas fa-file-invoice"></i></h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -193,7 +193,7 @@ if ($_SESSION["loginPerfilMR"] == 4) {
     <div class="modal-content">
       <form action="" role="form" id="formEdtEmp" method="post">
         <div class="modal-header text-center bg-olive" style="color: white">
-          <h4 class="modal-title">Editar Empleado&nbsp; <i class="fas fa-people-carry"></i></h4>
+          <h4 class="modal-title">Editar Empleado&nbsp; <i class="fas fa-file-invoice"></i></h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
