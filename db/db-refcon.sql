@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 02-02-2022 a las 21:08:29
+-- Tiempo de generación: 04-02-2022 a las 21:06:55
 -- Versión del servidor: 5.7.33
 -- Versión de PHP: 7.4.25
 
@@ -32,6 +32,66 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Perfiles_Users` ()   SELECT
 	roles.estadoRol
 FROM
 	roles$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Referencias` ()   SELECT
+	referencias.idReferencia, 
+	referencias.nroHojaRef, 
+	date_format(referencias.fechaReferencia,'%d/%m/%Y') AS fechaReferencia, 
+	referencias.idDepartamento, 
+	departamentosh.nombreDept, 
+	referencias.idEspecialidad, 
+	especialidades.nombreEsp, 
+	referencias.idServicio, 
+	servicios.nombServicio, 
+	referencias.idEstablecimiento, 
+	establecimientos.codigoEstab, 
+	establecimientos.nombreEstablecimiento, 
+	referencias.idTipoDoc, 
+	tiposdoc.nombreTipDoc, 
+	referencias.nroDoc, 
+	referencias.idSexo, 
+	sexousuario.descSexo, 
+	referencias.apePaterno, 
+	referencias.apeMaterno, 
+	referencias.nombres, 
+	referencias.motivo, 
+	referencias.activo, 
+	referencias.idEstado, 
+	estadoref.descEstado
+FROM
+	referencias
+	INNER JOIN
+	departamentosh
+	ON 
+		referencias.idDepartamento = departamentosh.idDepartamentoH
+	INNER JOIN
+	especialidades
+	ON 
+		referencias.idEspecialidad = especialidades.idEspecialidad
+	INNER JOIN
+	servicios
+	ON 
+		referencias.idServicio = servicios.idServicio
+	INNER JOIN
+	establecimientos
+	ON 
+		referencias.idEstablecimiento = establecimientos.idEstablecimiento
+	INNER JOIN
+	tiposdoc
+	ON 
+		referencias.idTipoDoc = tiposdoc.idTipoDoc
+	INNER JOIN
+	sexousuario
+	ON 
+		referencias.idSexo = sexousuario.idSexo
+	INNER JOIN
+	estadoref
+	ON 
+		referencias.idEstado = estadoref.idEstado
+WHERE
+	activo = 1
+ORDER BY
+	fechaReferencia DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Usuarios` ()   SELECT
 	usuarios.idUsuario,
@@ -10426,8 +10486,8 @@ INSERT INTO `estadoref` (`idEstado`, `descEstado`) VALUES
 (1, 'PENDIENTE'),
 (2, 'ACEPTADA'),
 (3, 'CITADA'),
-(4, 'RECHAZADO'),
-(5, 'OBSERVADO');
+(4, 'RECHAZADA'),
+(5, 'OBSERVADA');
 
 -- --------------------------------------------------------
 
@@ -10677,8 +10737,16 @@ CREATE TABLE `referencias` (
   `nombres` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `motivo` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   `usuarioCrea` int(11) DEFAULT NULL,
+  `activo` int(11) DEFAULT '1',
   `fechaCreacion` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `referencias`
+--
+
+INSERT INTO `referencias` (`idReferencia`, `fechaReferencia`, `idEstado`, `idDepartamento`, `idEspecialidad`, `idServicio`, `idEstablecimiento`, `idTipoDoc`, `idSexo`, `nroDoc`, `nroHojaRef`, `apePaterno`, `apeMaterno`, `nombres`, `motivo`, `usuarioCrea`, `activo`, `fechaCreacion`) VALUES
+(1, '2022-01-17', 1, 2, 27, 1373, 5733, 1, 1, '92196510', '5735-00098', 'BERROCAL', 'MONROY', 'CATALEYA BRIANNA ELENA', NULL, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -11022,6 +11090,18 @@ CREATE TABLE `tiposdoc` (
   `nombreTipDoc` text COLLATE utf8_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Volcado de datos para la tabla `tiposdoc`
+--
+
+INSERT INTO `tiposdoc` (`idTipoDoc`, `nombreTipDoc`) VALUES
+(1, 'DNI'),
+(2, 'CE'),
+(3, 'PASS'),
+(4, 'PASS'),
+(5, 'S/DOCUMENTO'),
+(6, 'CNV');
+
 -- --------------------------------------------------------
 
 --
@@ -11198,6 +11278,12 @@ ALTER TABLE `estadoref`
 --
 ALTER TABLE `permisos`
   MODIFY `idPermiso` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `referencias`
+--
+ALTER TABLE `referencias`
+  MODIFY `idReferencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

@@ -1,6 +1,6 @@
 /** LISTADO DE EMPLEADOS */
-$(".datatableEmpleadosMR").DataTable({
-    ajax: "public/views/util/DatatableEmpleados.php",
+$(".datatableReferencias").DataTable({
+    ajax: "public/views/util/DatatableReferencias.php",
     deferRender: true,
     retrieve: true,
     processing: true,

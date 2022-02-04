@@ -31,22 +31,24 @@ if ($_SESSION["loginPerfilMR"] == 4) {
         <button type="btn" class="btn btn-secondary" data-toggle="modal" data-target="#modal-cargar-referencia"><i class="fas fa-file-invoice"></i> Cargar Referencia
         </button>
       </div>
-      <!-- <div class="card-body">
-        <table id="datatableEmpleadosMR" class="table table-bordered table-hover dt-responsive datatableEmpleadosMR">
+      <div class="card-body">
+        <table id="datatableReferencias" class="table table-bordered table-hover dt-responsive datatableReferencias">
           <thead>
             <tr>
               <th style="width: 10px">#</th>
-              <th>N° DNI</th>
-              <th>Apellido Paterno</th>
-              <th>Apellido Materno</th>
-              <th>Nombres</th>
-              <th>Cargo</th>
-              <th>Condición</th>
+              <th>N° Referencia</th>
+              <th>Fecha</th>
+              <th>N° Doc</th>
+              <th>Paciente</th>
+              <th>Est. Origen</th>
+              <th>Servicio Dest.</th>
+              <th>Estado</th>
+              <th>Publicado</th>
               <th>Opciones</th>
             </tr>
           </thead>
         </table>
-      </div> -->
+      </div>
     </div>
   </section>
 </div>
@@ -62,116 +64,7 @@ if ($_SESSION["loginPerfilMR"] == 4) {
           </button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-              <div class="form-group">
-                <label for="rgEDni">N° DNI &nbsp;</label>
-                <i class="fas fa-id-card"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgEDni" id="rgEDni" class="form-control" placeholder="Ingrese N° DNI" required autocomplete="off" autofocus="autofocus">
-                  <input type="hidden" name="idUsRegEmp" id="idUsRegEmp" value="<?php echo $_SESSION["loginIdMR"]; ?>">
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-              <div class="form-group">
-                <label>Búsqueda:<span class="text-danger">&nbsp;*</span></label>
-                <div class="input-group">
-                  <button type="button" class="btn btn-block btn-info" id="btnDNIEmp"><i class="fas fa-search"></i>&nbsp;Consulta DNI</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-5">
-              <div class="form-group">
-                <label for="rgEFNac">Fecha de Nacimiento &nbsp;</label>
-                <i class="fas fa-calendar-check"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgEFNac" id="rgEFNac" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="Ingrese Fecha Nacimiento (Opcional)" autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-5">
-              <div class="form-group">
-                <label for="rgEFAlta">Fecha de Alta &nbsp;</label>
-                <i class="fas fa-calendar-check"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgEFAlta" id="rgEFAlta" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="Ingrese Fecha Nacimiento (Opcional)" autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="form-group">
-                <label for="rgENombres">Nombres &nbsp;</label>
-                <i class="fas fa-signature"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgENombres" id="rgENombres" class="form-control" placeholder="Ingrese nombres de empleado" required autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="form-group">
-                <label for="rgEApPat">Apellido Paterno &nbsp;</label>
-                <i class="fas fa-signature"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgEApPat" id="rgEApPat" class="form-control" placeholder="Ingrese Apellido Paterno" required autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="form-group">
-                <label for="rgEApMat">Apellido Materno &nbsp;</label>
-                <i class="fas fa-signature"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgEApMat" id="rgEApMat" class="form-control" placeholder="Ingrese Apellido Materno" required autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="form-group">
-                <label for="rgECargo">Cargo &nbsp;</label>
-                <i class="fas fa-graduation-cap"></i> *
-                <div class="input-group">
-                  <select class="form-control" style="width: 100%;" name="rgECargo" id="rgECargo">
-                    <option value="0">Seleccione cargo</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-              <div class="form-group">
-                <label for="rgECondicion">Condición Laboral &nbsp;</label>
-                <i class="fas fa-id-card-alt"></i> *
-                <div class="input-group">
-                  <select class="form-control" style="width: 100%;" name="rgECondicion" id="rgECondicion">
-                    <option value="0">Seleccione condición</option>
-                    <?php
-                    $tipCondEmp = EmpleadosControlador::ctrListarCondiciones();
-                    foreach ($tipCondEmp as $key => $value) {
-                      echo '<option value="' . $value["idCondicionLab"] . '">' . $value["descCondicion"] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-              <div class="form-group">
-                <label for="rgESueldo">Sueldo &nbsp;</label>
-                <i class="fas fa-coins"></i> *
-                <div class="input-group">
-                  <input type="text" name="rgESueldo" id="rgESueldo" class="form-control" placeholder="0.00" autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
         <div class="modal-footer justify-content-center">
           <button type="submit" class="btn btn-secondary" id="btnRegEmp"><i class="fas fa-save"></i> Guardar</button>
