@@ -16,59 +16,64 @@ $(".datatableReferencias").DataTable({
 });
 /** LISTADO DE EMPLEADOS */
 // Filtrado de campos
-$("#rgEDni").attr("minlength", "8");
-$("#rgEDni").attr("maxlength", "12");
-$("#rgEDni").keyup(function () {
+
+$("#rgNdoc").attr("minlength", "8");
+$("#rgNdoc").attr("maxlength", "15");
+
+$("#rgNroRef").keyup(function () {
+    this.value = (this.value + "").replace(/[^0-9\-]/g, "");
+});
+
+$("#rgNdoc").keyup(function () {
     this.value = (this.value + "").replace(/[^0-9]/g, "");
 });
-$("#rgENombres").keyup(function () {
+
+
+$("#rgNombresPac").keyup(function () {
     this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
 });
-$("#rgEApPat").keyup(function () {
+$("#rgRefAP").keyup(function () {
     this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
 });
-$("#rgEApMat").keyup(function () {
+$("#rgRefAP").keyup(function () {
     this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
 });
 
-$("#rgENombres").keyup(function () {
+$("#rgNombresPac").keyup(function () {
     var u4 = $(this).val();
     var mu4 = u4.toUpperCase();
-    $("#rgENombres").val(mu4);
+    $("#rgNombresPac").val(mu4);
 });
-$("#rgEApPat").keyup(function () {
+
+$("#rgRefAP").keyup(function () {
     var u4 = $(this).val();
     var mu4 = u4.toUpperCase();
-    $("#rgEApPat").val(mu4);
+    $("#rgRefAP").val(mu4);
 });
-$("#rgEApMat").keyup(function () {
+
+$("#rgRefAM").keyup(function () {
     var u4 = $(this).val();
     var mu4 = u4.toUpperCase();
-    $("#rgEApMat").val(mu4);
+    $("#rgRefAM").val(mu4);
 });
-$("#rgEFNac").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-$('#rgEFNac').datepicker({
+
+$("#rgRefMotivo").keyup(function () {
+    var u4 = $(this).val();
+    var mu4 = u4.toUpperCase();
+    $("#rgRefMotivo").val(mu4);
+});
+
+
+$("#rgFechaRef").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+$('#rgFechaRef').datepicker({
     'format': 'dd/mm/yyyy',
     'autoclose': true,
     'orientation': 'auto bottom',
     'language': 'es',
     'endDate': new Date(),
 });
-$("#rgEFAlta").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-$('#rgEFAlta').datepicker({
-    'format': 'dd/mm/yyyy',
-    'autoclose': true,
-    'orientation': 'auto bottom',
-    'language': 'es',
-    'endDate': new Date(),
-});
-$("#rgEFAlta").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-/** LISTADO DE EMPLEADOS */
-$("#rgESueldo").inputmask('decimal', {
-    rightAlign: true
-});
 
-$("#rgECargo").select2(
+$("#regRefEstable").select2(
     {
         maximumInputLength: "12",
         minimumInputLength: "2",
@@ -80,7 +85,7 @@ $("#rgECargo").select2(
             },
             searching: function () {
 
-                return "Buscando empleado ...";
+                return "Buscando Establecimiento ...";
             },
             inputTooShort: function () {
                 return "Ingrese 2 o más caracteres";
@@ -90,9 +95,9 @@ $("#rgECargo").select2(
             }
         },
         scrollAfterSelect: true,
-        placeholder: 'Ingrese Código o Descripción del cargo',
+        placeholder: 'Ingrese Código RENIPRESS o Nombre Establecimiento',
         ajax: {
-            url: "public/views/src/ajaxCargos.php",
+            url: "public/views/src/ajaxReferencias.php",
             type: "post",
             dataType: "json",
             delay: 200,
@@ -110,6 +115,52 @@ $("#rgECargo").select2(
         },
     }
 );
+
+
+$("#regRefServ").select2(
+    {
+        maximumInputLength: "12",
+        minimumInputLength: "2",
+        language: {
+
+            noResults: function () {
+
+                return "No hay resultado";
+            },
+            searching: function () {
+
+                return "Buscando Servicio/Especialidad ...";
+            },
+            inputTooShort: function () {
+                return "Ingrese 2 o más caracteres";
+            },
+            inputTooLong: function () {
+                return "Ingrese máximo 12 caracteres";
+            }
+        },
+        scrollAfterSelect: true,
+        placeholder: 'Ingrese nombre Servicio/Especialidad destino',
+        ajax: {
+            url: "public/views/src/ajaxReferencias.php",
+            type: "post",
+            dataType: "json",
+            delay: 200,
+            data: function (params) {
+                return {
+                    searchTerm2: params.term,
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response,
+                };
+            },
+            cache: true,
+        },
+    }
+);
+
+
 $("#rgEDni").change(function () {
     const Toast = Swal.mixin({
         toast: true,
@@ -197,54 +248,95 @@ $.validator.addMethod(
     },
     "Value must not equal arg."
 );
-$("#btnRegEmp").on("click", function () {
-    $("#formRegEmp").validate({
+
+$("#btnRegReferencia").on("click", function () {
+    $("#formRegRef").validate({
         rules: {
-            rgECargo: {
+            rgTipoDoc: {
                 valueNotEquals: "0",
                 required: true,
             },
-            rgECondicion: {
+            rgSexo: {
                 valueNotEquals: "0",
                 required: true,
             },
-            rgEDni: {
+            rgRefEstado: {
+                valueNotEquals: "0",
                 required: true,
-                maxlength: 12,
+            },
+            regRefEstable: {
+                valueNotEquals: "0",
+                required: true,
+            },
+            regRefServ: {
+                valueNotEquals: "0",
+                required: true,
+            },
+
+            rgNdoc: {
+                required: true,
+                maxlength: 15,
                 minlength: 8,
             },
-            rgENombres: {
+
+            rgNombresPac: {
                 required: true,
             },
-            rgEApPat: {
+            rgRefAP: {
                 required: true,
             },
-            rgEApMat: {
+            rgRefAM: {
+                required: true,
+            },
+            rgNroRef: {
+                required: true,
+            },
+            rgFechaRef: {
                 required: true,
             },
         },
         messages: {
-            rgECargo: {
-                valueNotEquals: "Selecciona un cargo",
-                required: "Selecciona un cargo",
+            rgTipoDoc: {
+                valueNotEquals: "Seleccione Tipo Documento",
+                required: "Seleccione Tipo Documento",
             },
-            rgECondicion: {
-                valueNotEquals: "Seleccion condición",
-                required: "Seleccion condición",
+            rgSexo: {
+                valueNotEquals: "Seleccione Sexo",
+                required: "Seleccione Sexo",
             },
-            rgEDni: {
-                required: "Ingrese DNI",
-                maxlength: "Ingrese máximo 12 dígitos",
-                minlength: "Ingrese máximo 8 dígitos",
+            rgRefEstado: {
+                valueNotEquals: "Seleccione Estado",
+                required: "Seleccione Estado",
             },
-            rgENombres: {
-                required: "Ingrese nombres",
+            regRefEstable: {
+                valueNotEquals: "Seleccione Establecimiento",
+                required: "Seleccione Establecimiento",
             },
-            rgEApPat: {
-                required: "Ingrese Apellido Paterno",
+            regRefServ: {
+                valueNotEquals: "Seleccione Servicio/Especialidad",
+                required: "Seleccione Servicio/Especialidad",
             },
-            rgEApMat: {
-                required: "Ingrese Apellido Materno",
+
+            rgNdoc: {
+                required: "Ingrese dato",
+                maxlength: "Ingrese máximo 15 digitos",
+                minlength: "Ingrese mínimo 8 digitos",
+            },
+
+            rgNombresPac: {
+                required: "Ingrese dato requerido",
+            },
+            rgRefAP: {
+                required: "Ingrese dato requerido",
+            },
+            rgRefAM: {
+                required: "Ingrese dato requerido",
+            },
+            rgNroRef: {
+                required: "Ingrese dato requerido",
+            },
+            rgFechaRef: {
+                required: "Ingrese dato requerido",
             },
         },
         errorElement: "span",

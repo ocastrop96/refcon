@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION["loginPerfilMR"] == 4) {
+if ($_SESSION["loginPerfilRef"] == 4) {
   echo '<script>
     window.location = "dashboard";
   </script>';
@@ -67,6 +67,7 @@ if ($_SESSION["loginPerfilMR"] == 4) {
           <hr>
           <div class="row">
             <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+              <input type="hidden" id="userRegistra" value="<?php echo $_SESSION["loginIdRef"]; ?>">
               <div class="form-group">
                 <label for="rgTipEnt">Tipo Documento: &nbsp;</label>
                 <i class="fas fa-id-card"></i> *
@@ -88,145 +89,155 @@ if ($_SESSION["loginPerfilMR"] == 4) {
                 <label for="rgNRuc">N° Doc: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="rgNdoc" id="rgNdoc" placeholder="Ingrese Nro Doc" maxlength="15">
+                  <input type="text" class="form-control" name="rgNdoc" id="rgNdoc" placeholder="Ingrese Nro Doc" autocomplete="off">
                 </div>
               </div>
             </div>
-
-          </div>
-          <h6 class="font-weight-bold">2. Datos de la Referencia. &nbsp;<i class="fas fa-file-invoice"></i></h6>
-          <hr>
-
-        </div>
-        <div class="modal-footer justify-content-center">
-          <button type="submit" class="btn btn-secondary" id="btnRegEmp"><i class="fas fa-save"></i> Guardar</button>
-          <button type="reset" class="btn btn-danger"><i class="fas fa-eraser"></i> Limpiar</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times-circle"></i> Salir</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- Registro de Diagnóstico -->
-<!-- Editar de Diagnóstico -->
-<div id="modal-editar-empleado" class="modal fade" role="dialog" aria-modal="true" style="padding-right: 17px;">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <form action="" role="form" id="formEdtEmp" method="post">
-        <div class="modal-header text-center bg-olive" style="color: white">
-          <h4 class="modal-title">Editar Empleado&nbsp; <i class="fas fa-file-invoice"></i></h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-              <div class="form-group">
-                <label for="edtEDni">N° DNI &nbsp;</label>
-                <i class="fas fa-id-card"></i> *
-                <div class="input-group">
-                  <input type="text" name="edtEDni" id="edtEDni" class="form-control" placeholder="Ingrese N° DNI" required autocomplete="off" autofocus="autofocus">
-                  <input type="hidden" name="idEmpleado" id="idEmpleado">
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 d-none" id="btnDniPac">
               <div class="form-group">
                 <label>Búsqueda:<span class="text-danger">&nbsp;*</span></label>
                 <div class="input-group">
-                  <button type="button" class="btn btn-block btn-info" id="btnDNIEmpEdt"><i class="fas fa-search"></i>&nbsp;Consulta DNI</button>
+                  <button type="button" class="btn btn-block btn-success" id="btnDNIPaci"><i class="fas fa-search"></i>&nbsp;Consulta DNI</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-5">
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+              <input type="hidden" id="userRegistra" name="userRegistra" value="<?php echo $_SESSION["loginIdRef"]; ?>">
               <div class="form-group">
-                <label for="edtEFNac">Fecha de Nacimiento &nbsp;</label>
-                <i class="fas fa-calendar-check"></i> *
+                <label for="rgSexo">Sexo: &nbsp;</label>
+                <i class="fas fa-id-card"></i> *
                 <div class="input-group">
-                  <input type="text" name="edtEFNac" id="edtEFNac" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="Ingrese Fecha Nacimiento (Opcional)" autocomplete="off" autofocus="autofocus">
+                  <select class="form-control" id="rgSexo" name="rgSexo">
+                    <option value="0">Seleccione sexo</option>
+                    <?php
+                    $sexo = ReferenciasControlador::ctrListarTiposSexo();
+                    foreach ($sexo as $key => $value) {
+                      echo '<option value="' . $value["idSexo"] . '">' . $value["descSexo"] . '</option>';
+                    }
+                    ?>
+                  </select>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-5">
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
-                <label for="edtEFAlta">Fecha de Alta &nbsp;</label>
-                <i class="fas fa-calendar-check"></i> *
+                <label for="rgNombresPac">Nombres: &nbsp;</label>
+                <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <input type="text" name="edtEFAlta" id="edtEFAlta" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="Ingrese Fecha Nacimiento (Opcional)" autocomplete="off" autofocus="autofocus">
+                  <input type="text" class="form-control" name="rgNombresPac" id="rgNombresPac" placeholder="Ingrese Nombres del paciente" maxlength="50" autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+              <div class="form-group">
+                <label for="rgRefAP">Apellido Paterno: &nbsp;</label>
+                <i class="fas fa-search"></i>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="rgRefAP" id="rgRefAP" placeholder="Ingrese Apellido Paterno" maxlength="50" autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                <label for="rgRefAP">Apellido Materno: &nbsp;</label>
+                <i class="fas fa-search"></i>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="rgRefAM" id="rgRefAM" placeholder="Ingrese Apellido Materno" maxlength="50" autocomplete="off">
                 </div>
               </div>
             </div>
           </div>
+          <h6 class="font-weight-bold">2. Datos de la Referencia. &nbsp;<i class="fas fa-file-invoice"></i></h6>
+          <hr>
           <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
-                <label for="edtENombres">Nombres &nbsp;</label>
-                <i class="fas fa-signature"></i> *
+                <label for="rgNroRef">N° Referencia: &nbsp;</label>
+                <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <input type="text" name="edtENombres" id="edtENombres" class="form-control" required autocomplete="off" autofocus="autofocus">
+                  <input type="text" class="form-control" name="rgNroRef" id="rgNroRef" placeholder="Ingrese Nro Referencia" maxlength="15" autocomplete="off">
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
-                <label for="edtEApPat">Apellido Paterno &nbsp;</label>
-                <i class="fas fa-signature"></i> *
+                <label for="rgFechaRef">Fecha de Referencia: &nbsp;</label>
+                <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <input type="text" name="edtEApPat" id="edtEApPat" class="form-control" required autocomplete="off" autofocus="autofocus">
+                  <input type="text" name="rgFechaRef" id="rgFechaRef" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="dd/mm/yyyy" required>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+
+
               <div class="form-group">
-                <label for="edtEApMat">Apellido Materno &nbsp;</label>
-                <i class="fas fa-signature"></i> *
+                <label for="rgRefEstado">Estado Referencia: &nbsp;</label>
+                <i class="fas fa-id-card"></i> *
                 <div class="input-group">
-                  <input type="text" name="edtEApMat" id="edtEApMat" class="form-control" required autocomplete="off" autofocus="autofocus">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="form-group">
-                <label for="edtECargo">Cargo &nbsp;</label>
-                <i class="fas fa-graduation-cap"></i>
-                <span class="font-weight-bolder text-danger" id="seleccionCargo11">ACTUAL : </span>
-                <span class="font-weight-bolder" id="seleccionCargo1"></span>
-                <div class="input-group">
-                  <select class="form-control" style="width: 100%;" name="edtECargo" id="edtECargo">
-                    <option value="" id="edtECargo1"></option>
+                  <select class="form-control" id="rgRefEstado" name="rgRefEstado">
+                    <option value="0">Seleccione estado</option>
+                    <?php
+                    $estadoReferencia = ReferenciasControlador::ctrListarEstadoRef();
+                    foreach ($estadoReferencia as $key => $value) {
+                      echo '<option value="' . $value["idEstado"] . '">' . $value["descEstado"] . '</option>';
+                    }
+                    ?>
                   </select>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
               <div class="form-group">
-                <label for="edtECondicion">Condición Laboral &nbsp;</label>
-                <i class="fas fa-id-card-alt"></i> *
+                <label for="regRefEstable">Establecimiento Origen: &nbsp;</label>
+                <i class="fas fa-id-card"></i> *
+                <div class="input-group">
+                  <select class="form-control" id="regRefEstable" name="regRefEstable" style="width: 100%;">
+                    <option value="0">Seleccione EE.SS Origen</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
               <div class="form-group">
-                <label for="edtESueldo">Sueldo &nbsp;</label>
-                <i class="fas fa-coins"></i> *
+                <label for="regRefServ">Servicio Destino: &nbsp;</label>
+                <i class="fas fa-id-card"></i> *
                 <div class="input-group">
-                  <input type="text" name="edtESueldo" id="edtESueldo" class="form-control" placeholder="0.00" autocomplete="off" autofocus="autofocus">
+                  <select class="form-control" style="width: 100%;" id="regRefServ" name="regRefServ">
+                    <option value="0">Seleccione Servicio Destino</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label for="rgRefMotivo">Motivo de Rechazo u Observación de la Referencia: &nbsp;</label>
+                <i class="fas fa-search"></i>
+                <div class="input-group">
+                  <textarea cols="30" rows="2" class="form-control" name="rgRefMotivo" id="rgRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="200" autocomplete="off"></textarea>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer justify-content-center">
-          <button type="submit" class="btn btn-secondary" id="btnEdtEmp"><i class="fas fa-save"></i> Guardar cambios</button>
+          <button type="submit" class="btn btn-secondary" id="btnRegReferencia"><i class="fas fa-save"></i> Grabar</button>
+          <button type="reset" class="btn btn-danger"><i class="fas fa-eraser"></i> Limpiar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times-circle"></i> Salir</button>
         </div>
+        <?php
+        $registrarLicencia = new ReferenciasControlador();
+        $registrarLicencia->ctrRegistrarReferencia();
+        ?>
       </form>
     </div>
   </div>
 </div>
+<!-- Registro de Diagnóstico -->

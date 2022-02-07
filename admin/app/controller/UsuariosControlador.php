@@ -18,16 +18,16 @@ class UsuariosControlador
                         // VALIDANDO INTENTOS REGISTRADOS
                         if ($rptLogin["intentos"] <= 3) {
                             $_SESSION["loginGRSystem"] = "ok";
-                            $_SESSION["loginIdMR"] = $rptLogin["idUsuario"];
-                            $_SESSION["loginCardMR"] = $rptLogin["dni"];
-                            $_SESSION["loginPerfilMR"] = $rptLogin["idRol"];
-                            $_SESSION["loginPerfilDescMR"] = $rptLogin["nombreRol"];
-                            $_SESSION["loginNombresMR"] = $rptLogin["nombres"];
+                            $_SESSION["loginIdRef"] = $rptLogin["idUsuario"];
+                            $_SESSION["loginCardRef"] = $rptLogin["dni"];
+                            $_SESSION["loginPerfilRef"] = $rptLogin["idRol"];
+                            $_SESSION["loginPerfilDescRef"] = $rptLogin["nombreRol"];
+                            $_SESSION["loginNombresRef"] = $rptLogin["nombres"];
 
                             echo '<script>
                                 Swal.fire({
                                     icon: "success",
-                                    title: "Acceso concedido...¡Bienvenido(a)! <br>' . $_SESSION["loginNombresMR"] . '",
+                                    title: "Acceso concedido...¡Bienvenido(a)! <br>' . $_SESSION["loginNombresRef"] . '",
                                     showConfirmButton: false,
                                     timer: 1500
                                 });

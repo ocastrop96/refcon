@@ -11,7 +11,7 @@
                 <img src="public/views/resources/img/sidebar-logo.jpg" class="img-circle elevation-2" alt="LOGIN MRMS">
             </div>
             <div class="info">
-                <a href="dashboard" class="d-block font-weight-bolder">Hola! <br><?php echo $_SESSION["loginNombresMR"]; ?></a>
+                <a href="dashboard" class="d-block font-weight-bolder">Hola! <br><?php echo $_SESSION["loginNombresRef"]; ?></a>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
 
                 <!-- Bloque de opciones de menú por usuario -->
                 <?php
-                if ($_SESSION["loginPerfilMR"] == 1) {
+                if ($_SESSION["loginPerfilRef"] == 1) {
                     echo '<li class="nav-header">Administración</li>
                     <li class="nav-item">
                         <a href="usuarios" class="nav-link">
@@ -47,7 +47,7 @@
                             </p>
                         </a>
                     </li>';
-                } elseif ($_SESSION["loginPerfilMR"] == 2) {
+                } elseif ($_SESSION["loginPerfilRef"] == 2) {
                     echo '<li class="nav-header">Gestión</li>
                     <li class="nav-item">
                         <a href="referencias" class="nav-link">
@@ -57,7 +57,7 @@
                             </p>
                         </a>
                     </li>';
-                } elseif ($_SESSION["loginPerfilMR"] == 4) {
+                } elseif ($_SESSION["loginPerfilRef"] == 4) {
                     echo '<li class="nav-header">Gestión</li>
                     <li class="nav-item">
                         <a href="licencias" class="nav-link">
