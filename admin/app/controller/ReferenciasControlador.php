@@ -51,6 +51,7 @@ class ReferenciasControlador
                     "apePaterno" => $_POST["rgRefAP"],
                     "apeMaterno" => $_POST["rgRefAM"],
                     "nombres" => $_POST["rgNombresPac"],
+                    "anamnesis" => $_POST["rgRefAnamnesis"],
                     "motivo" => $_POST["rgRefMotivo"]
                 );
 
@@ -61,12 +62,12 @@ class ReferenciasControlador
                     icon: "success",
                     title: "Se ha registrado la referencia con éxito",
                     showConfirmButton: false,
-                    timer: 1800
+                    timer: 1500
                     });
                     function redirect(){
                         window.location = "referencias";
                     }
-                    setTimeout(redirect,1800);
+                    setTimeout(redirect,1500);
                 </script>';
                 } else {
                     echo '<script>
@@ -101,6 +102,79 @@ class ReferenciasControlador
 
     static public function ctrEditarReferencia()
     {
+        if (isset($_POST["edtTipoDoc"])) {
+
+            if (preg_match('/^[0-9]+$/', $_POST["edtTipoDoc"])) {
+                date_default_timezone_set('America/Lima');
+                $FechaModificacion = date("Y-m-d H:i:s");
+
+                $fRef1 = $_POST["edtFechaRef"];
+                $datefRef1 = str_replace('/', '-', $fRef1);
+                $fechaReferencia = date('Y-m-d', strtotime($datefRef1));
+
+                $datos = array(
+                    "idReferencia" => $_POST["idReferencia"],
+                    "idEstado" => $_POST["edtRefEstado"],
+                    "idServicio" => $_POST["edtRefServ"],
+                    "idEstablecimiento" => $_POST["edtRefEstable"],
+                    "idTipoDoc" => $_POST["edtTipoDoc"],
+                    "idSexo" => $_POST["edtSexo"],
+                    "usuarioModif" => $_POST["userEdita"],
+                    "fechaReferencia" => $fechaReferencia,
+                    "fechaModificacion" => $FechaModificacion,
+                    "nroDoc" => $_POST["edtNdoc"],
+                    "nroHojaRef" => $_POST["edtNroRef"],
+                    "apePaterno" => $_POST["edtRefAP"],
+                    "apeMaterno" => $_POST["edtRefAM"],
+                    "nombres" => $_POST["edtNombresPac"],
+                    "anamnesis" => $_POST["edtRefAnamnesis"],
+                    "motivo" => $_POST["edtRefMotivo"]
+                );
+
+                $rptEditarReferencia = ReferenciasModelo::mdlEditarReferencia($datos);
+                if ($rptEditarReferencia == "ok") {
+                    echo '<script>
+                    Swal.fire({
+                    icon: "success",
+                    title: "Se ha modificado la referencia con éxito",
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
+                    function redirect(){
+                        window.location = "referencias";
+                    }
+                    setTimeout(redirect,1500);
+                </script>';
+                } else {
+                    
+                    echo '<script>
+                    Swal.fire({
+                    icon: "error",
+                    title: "Ha ocurrido un error con el registro, verifique con los datos ingresados",
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
+                    function redirect(){
+                        window.location = "referencias";
+                    }
+                    setTimeout(redirect,1200);
+                </script>';
+                }
+            } else {
+                echo '<script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "¡Ingrese los datos correctamente!",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            function redirect(){
+                                window.location = "referencias";
+                            }
+                            setTimeout(redirect,1200);
+                      </script>';
+            }
+        }
     }
 
     static public function ctrAnularReferencia()

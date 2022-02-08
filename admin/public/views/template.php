@@ -116,11 +116,6 @@ session_start();
     <script type="text/javascript" src="public/js/signin.js"></script>
     <script type="text/javascript" src="public/js/usuarios.js"></script>
     <script type="text/javascript" src="public/js/referencias.js"></script>
-    <script type="text/javascript" src="public/js/cargos.js"></script>
-    <script type="text/javascript" src="public/js/licencias.js"></script>
-    <script type="text/javascript" src="public/js/reporte-empleado.js"></script>
-    <script type="text/javascript" src="public/js/reporte-coordinador.js"></script>
-    <script type="text/javascript" src="public/js/salud-ocupacional.js"></script>
     <!-- Scripts JS Propios -->
 </body>
 

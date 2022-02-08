@@ -5687,6 +5687,11 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #c3e6cb;
 }
 
+.alert-hnseb {
+  color: #fff;
+  background-color: #05437F;
+  border-color: #BFCEDD;
+}
 .alert-success hr {
   border-top-color: #b1dfbb;
 }

@@ -86,7 +86,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
             </div>
             <div class="col-12 col-sm-2 col-md-2 col-lg-2">
               <div class="form-group">
-                <label for="rgNRuc">N° Doc: &nbsp;</label>
+                <label for="rgNdoc">N° Doc: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
                   <input type="text" class="form-control" name="rgNdoc" id="rgNdoc" placeholder="Ingrese Nro Doc" autocomplete="off">
@@ -215,6 +215,18 @@ if ($_SESSION["loginPerfilRef"] == 4) {
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label for="rgRefAnamnesis">Anamnesis o Motivo de la Referencia: &nbsp;</label>
+                <i class="fas fa-search"></i>
+                <div class="input-group">
+                  <textarea cols="30" rows="2" class="form-control" name="rgRefAnamnesis" id="rgRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="200" autocomplete="off" required></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
@@ -414,6 +426,17 @@ if ($_SESSION["loginPerfilRef"] == 4) {
           <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
+                <label for="edtRefAnamnesis">Anamnesis o Motivo de la Referencia: &nbsp;</label>
+                <i class="fas fa-search"></i>
+                <div class="input-group">
+                  <textarea cols="30" rows="2" class="form-control" name="edtRefAnamnesis" id="edtRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="200" autocomplete="off" required></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
                 <label for="edtRefMotivo">Motivo de Rechazo u Observación de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
@@ -427,6 +450,10 @@ if ($_SESSION["loginPerfilRef"] == 4) {
           <button type="submit" class="btn btn-secondary" id="btnEdtReferencia"><i class="fas fa-save"></i> Guardar Cambios</button>
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times-circle"></i> Salir</button>
         </div>
+        <?php
+        $editarReferencia = new ReferenciasControlador();
+        $editarReferencia->ctrEditarReferencia();
+        ?>
       </form>
     </div>
   </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-02-2022 a las 21:06:55
+-- Tiempo de generación: 07-02-2022 a las 14:56:57
 -- Versión del servidor: 5.7.33
 -- Versión de PHP: 7.4.25
 
@@ -25,6 +25,12 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarTipoSexo` ()   SELECT
+	sexousuario.idSexo, 
+	sexousuario.descSexo
+FROM
+	sexousuario$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Perfiles_Users` ()   SELECT
 	roles.idRol, 
 	roles.nombreRol, 
@@ -55,7 +61,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Referencias` ()   SELECT
 	referencias.apeMaterno, 
 	referencias.nombres, 
 	referencias.motivo, 
-	referencias.activo, 
+	referencias.estadoAnula, 
 	referencias.idEstado, 
 	estadoref.descEstado
 FROM
@@ -89,9 +95,15 @@ FROM
 	ON 
 		referencias.idEstado = estadoref.idEstado
 WHERE
-	activo = 1
+	estadoAnula = 1
 ORDER BY
 	fechaReferencia DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Tipos_Documentos` ()   SELECT
+	tiposdoc.idTipoDoc, 
+	tiposdoc.nombreTipDoc
+FROM
+	tiposdoc$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Usuarios` ()   SELECT
 	usuarios.idUsuario,
@@ -10735,18 +10747,22 @@ CREATE TABLE `referencias` (
   `apePaterno` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `apeMaterno` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `nombres` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `motivo` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `motivo` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `estadoAnula` int(11) DEFAULT '1',
   `usuarioCrea` int(11) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `fechaCreacion` timestamp NULL DEFAULT NULL
+  `fechaCreacion` datetime DEFAULT NULL,
+  `usuarioModif` int(11) DEFAULT NULL,
+  `fechaModificacion` datetime DEFAULT NULL,
+  `usuarioAnula` int(11) DEFAULT NULL,
+  `fechaAnulacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `referencias`
 --
 
-INSERT INTO `referencias` (`idReferencia`, `fechaReferencia`, `idEstado`, `idDepartamento`, `idEspecialidad`, `idServicio`, `idEstablecimiento`, `idTipoDoc`, `idSexo`, `nroDoc`, `nroHojaRef`, `apePaterno`, `apeMaterno`, `nombres`, `motivo`, `usuarioCrea`, `activo`, `fechaCreacion`) VALUES
-(1, '2022-01-17', 1, 2, 27, 1373, 5733, 1, 1, '92196510', '5735-00098', 'BERROCAL', 'MONROY', 'CATALEYA BRIANNA ELENA', NULL, 1, 1, NULL);
+INSERT INTO `referencias` (`idReferencia`, `fechaReferencia`, `idEstado`, `idDepartamento`, `idEspecialidad`, `idServicio`, `idEstablecimiento`, `idTipoDoc`, `idSexo`, `nroDoc`, `nroHojaRef`, `apePaterno`, `apeMaterno`, `nombres`, `motivo`, `estadoAnula`, `usuarioCrea`, `fechaCreacion`, `usuarioModif`, `fechaModificacion`, `usuarioAnula`, `fechaAnulacion`) VALUES
+(1, '2022-01-17', 1, 2, 27, 1373, 5733, 1, 1, '92196510', '5735-00098', 'BERROCAL', 'MONROY', 'CATALEYA BRIANNA ELENA', NULL, 1, 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -11098,7 +11114,7 @@ INSERT INTO `tiposdoc` (`idTipoDoc`, `nombreTipDoc`) VALUES
 (1, 'DNI'),
 (2, 'CE'),
 (3, 'PASS'),
-(4, 'PASS'),
+(4, 'DIE'),
 (5, 'S/DOCUMENTO'),
 (6, 'CNV');
 

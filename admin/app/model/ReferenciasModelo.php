@@ -26,6 +26,7 @@ class ReferenciasModelo
             referencias.apeMaterno, 
             referencias.nombres, 
             referencias.motivo, 
+            referencias.anamnesis,
             referencias.estadoAnula, 
             referencias.idEstado, 
             estadoref.descEstado, 
@@ -122,7 +123,7 @@ class ReferenciasModelo
 
     static public function mdlRegistrarReferencia($datos)
     {
-        $stmt = Conexion::conectar()->prepare("CALL Registrar_Referencia(:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:motivo,:usuarioCrea,:fechaCreacion)");
+        $stmt = Conexion::conectar()->prepare("CALL Registrar_Referencia(:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:anamnesis,:motivo,:usuarioCrea,:fechaCreacion)");
 
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
         $stmt->bindParam(":idServicio", $datos["idServicio"], PDO::PARAM_INT);
@@ -137,8 +138,41 @@ class ReferenciasModelo
         $stmt->bindParam(":apePaterno", $datos["apePaterno"], PDO::PARAM_STR);
         $stmt->bindParam(":apeMaterno", $datos["apeMaterno"], PDO::PARAM_STR);
         $stmt->bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
+        $stmt->bindParam(":anamnesis", $datos["anamnesis"], PDO::PARAM_STR);
         $stmt->bindParam(":motivo", $datos["motivo"], PDO::PARAM_STR);
         $stmt->bindParam(":fechaCreacion", $datos["fechaCreacion"], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            return "error";
+        }
+        $stmt->close();
+        $stmt = null;
+    }
+
+    static public function mdlEditarReferencia($datos)
+    {
+        // $stmt = Conexion::conectar()->prepare("CALL Editar_Referencia(1,'2022-02-01',2,149,5734,1,1,'77478995','05736-000525','CASTRO','PALACIOS','OLGER IVAN','VIENE POR FALTA DE ESPECIALISTAS EN PS','XD',1,'2022-02-08 10:26:00')");
+
+        $stmt = Conexion::conectar()->prepare("CALL Editar_Referencia(:idReferencia,:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:anamnesis,:motivo,:usuarioModif,:fechaModificacion)");
+
+        $stmt->bindParam(":idReferencia", $datos["idReferencia"], PDO::PARAM_INT);
+        $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
+        $stmt->bindParam(":idServicio", $datos["idServicio"], PDO::PARAM_INT);
+        $stmt->bindParam(":idEstablecimiento", $datos["idEstablecimiento"], PDO::PARAM_INT);
+        $stmt->bindParam(":idTipoDoc", $datos["idTipoDoc"], PDO::PARAM_INT);
+        $stmt->bindParam(":idSexo", $datos["idSexo"], PDO::PARAM_INT);
+        $stmt->bindParam(":usuarioModif", $datos["usuarioModif"], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaReferencia", $datos["fechaReferencia"], PDO::PARAM_STR);
+        $stmt->bindParam(":nroDoc", $datos["nroDoc"], PDO::PARAM_STR);
+        $stmt->bindParam(":nroHojaRef", $datos["nroHojaRef"], PDO::PARAM_STR);
+        $stmt->bindParam(":apePaterno", $datos["apePaterno"], PDO::PARAM_STR);
+        $stmt->bindParam(":apeMaterno", $datos["apeMaterno"], PDO::PARAM_STR);
+        $stmt->bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
+        $stmt->bindParam(":anamnesis", $datos["anamnesis"], PDO::PARAM_STR);
+        $stmt->bindParam(":motivo", $datos["motivo"], PDO::PARAM_STR);
+        $stmt->bindParam(":fechaModificacion", $datos["fechaModificacion"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             return "ok";

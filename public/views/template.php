@@ -83,44 +83,27 @@ session_start();
     <!-- JS -->
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition">
     <?php
-    if (isset($_SESSION["loginGRSystem"]) && $_SESSION["loginGRSystem"] == "ok") {
         echo '<div class="wrapper">';
-        include('pages/header.php');
-        include('pages/menu.php');
-
+        include "pages/header.php";
         if (isset($_GET["ruta"])) {
             if (
-                $_GET["ruta"] == "dashboard" ||
-                $_GET["ruta"] == "usuarios" ||
-                $_GET["ruta"] == "referencias" ||
-                $_GET["ruta"] == "signout"
+                $_GET["ruta"] == "home"
             ) {
                 include "pages/" . $_GET["ruta"] . ".php";
             } else {
                 include "pages/404.php";
             }
         } else {
-            include "pages/dashboard.php";
+            include "pages/home.php";
         }
         include('pages/footer.php');
         echo '</div>';
-    } else {
-        include "pages/signin.php";
-    }
     ?>
     <!-- Scripts JS Propios -->
     <script type="text/javascript" src="public/js/main.js"></script>
-    <script type="text/javascript" src="public/js/dashboard.js"></script>
-    <script type="text/javascript" src="public/js/signin.js"></script>
-    <script type="text/javascript" src="public/js/usuarios.js"></script>
-    <script type="text/javascript" src="public/js/referencias.js"></script>
-    <script type="text/javascript" src="public/js/cargos.js"></script>
-    <script type="text/javascript" src="public/js/licencias.js"></script>
-    <script type="text/javascript" src="public/js/reporte-empleado.js"></script>
-    <script type="text/javascript" src="public/js/reporte-coordinador.js"></script>
-    <script type="text/javascript" src="public/js/salud-ocupacional.js"></script>
+    <script type="text/javascript" src="public/js/consulta-refcon.js"></script>
     <!-- Scripts JS Propios -->
 </body>
 

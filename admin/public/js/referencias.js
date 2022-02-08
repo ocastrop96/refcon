@@ -42,6 +42,14 @@ $("#rgRefAP").keyup(function () {
     this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
 });
 
+$("#edtRefAnamnesis").keyup(function () {
+    this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+});
+
+$("#rgRefAnamnesis").keyup(function () {
+    this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+});
+
 $("#edtNroRef").keyup(function () {
     this.value = (this.value + "").replace(/[^0-9\-]/g, "");
 });
@@ -109,13 +117,41 @@ $("#edtRefMotivo").keyup(function () {
     $("#edtRefMotivo").val(mu4);
 });
 
+$("#rgRefAnamnesis").keyup(function () {
+    var u4 = $(this).val();
+    var mu4 = u4.toUpperCase();
+    $("#rgRefAnamnesis").val(mu4);
+});
+
+
+$("#edtRefAnamnesis").keyup(function () {
+    var u4 = $(this).val();
+    var mu4 = u4.toUpperCase();
+    $("#edtRefAnamnesis").val(mu4);
+});
+
+$("#rgFechaRef").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+$('#rgFechaRef').datepicker({
+    'format': 'dd/mm/yyyy',
+    'autoclose': true,
+    'orientation': 'auto bottom',
+    'language': 'es',
+    'startDate': '-7d',
+    'endDate': '+0d'
+    // minDate: -7,
+    // 'setStartDate': "01-01-1900",
+    // 'startDate': new Date() - 7,
+    // 'endDate': new Date(),
+});
+
 $("#edtFechaRef").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
 $('#edtFechaRef').datepicker({
     'format': 'dd/mm/yyyy',
     'autoclose': true,
     'orientation': 'auto bottom',
     'language': 'es',
-    'endDate': new Date(),
+    'startDate': '-7d',
+    'endDate': '+0d'
 });
 
 $("#regRefEstable").select2(
@@ -330,6 +366,9 @@ $("#btnRegReferencia").on("click", function () {
             rgFechaRef: {
                 required: true,
             },
+            rgRefAnamnesis: {
+                required: true,
+            },
         },
         messages: {
             rgTipoDoc: {
@@ -373,6 +412,9 @@ $("#btnRegReferencia").on("click", function () {
             },
             rgFechaRef: {
                 required: "Ingrese Fecha Referencia",
+            },
+            rgRefAnamnesis: {
+                required: "Ingrese anamnesis",
             },
         },
         errorElement: "span",
@@ -426,10 +468,9 @@ $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function ()
             $("#edtRefEstado1").html(respuesta["descEstado"]);
 
             // 05735 - C.S. PROGRESO - LIMA/LIMA/CARABAYLLO
-            $("#seleccionEESS1").html(respuesta["codigoEstab"] + " - " + respuesta["nombreEstablecimiento"]+ " - " + respuesta["ubicacion"]);
+            $("#seleccionEESS1").html(respuesta["codigoEstab"] + " - " + respuesta["nombreEstablecimiento"] + " - " + respuesta["ubicacion"]);
             $("#edtRefEstable1").val(respuesta["idEstablecimiento"]);
             $("#edtRefEstable1").html(respuesta["nombreEstablecimiento"]);
-
 
             $("#seleccionServ1").html(respuesta["descripcion"]);
 
@@ -437,6 +478,8 @@ $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function ()
             $("#edtRefServ1").html(respuesta["descripcion"]);
 
             $("#edtRefMotivo").val(respuesta["motivo"]);
+            $("#edtRefAnamnesis").val(respuesta["anamnesis"]);
+
         },
     });
 });
