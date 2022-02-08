@@ -25,10 +25,10 @@ if ($_SESSION["loginPerfilMR"] == 4) {
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Módulo de Carga de Referencias &nbsp;<i class="fas fa-file-invoice"></i></h3>
+        <h3 class="card-title">Módulo de Registro de Referencias &nbsp;<i class="fas fa-file-invoice"></i></h3>
       </div>
       <div class="card-body">
-        <button type="btn" class="btn btn-secondary" data-toggle="modal" data-target="#modal-cargar-referencia"><i class="fas fa-file-invoice"></i> Cargar Referencia
+        <button type="btn" class="btn btn-secondary" data-toggle="modal" data-target="#modal-cargar-referencia"><i class="fas fa-file-invoice"></i> Registrar Referencia
         </button>
       </div>
       <div class="card-body">
@@ -54,11 +54,11 @@ if ($_SESSION["loginPerfilMR"] == 4) {
 </div>
 <!-- Registro de Diagnóstico -->
 <div id="modal-cargar-referencia" class="modal fade" role="dialog" aria-modal="true" style="padding-right: 17px;">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form action="" role="form" id="formRegEmp" method="post">
         <div class="modal-header text-center bg-olive" style="color: white">
-          <h4 class="modal-title">Carga Referencias&nbsp; <i class="fas fa-file-invoice"></i></h4>
+          <h4 class="modal-title">Registrar Referencia&nbsp; <i class="fas fa-file-invoice"></i></h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -71,10 +71,6 @@ if ($_SESSION["loginPerfilMR"] == 4) {
           <button type="reset" class="btn btn-danger"><i class="fas fa-eraser"></i> Limpiar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times-circle"></i> Salir</button>
         </div>
-        <?php
-        $registrarEmpleado = new EmpleadosControlador();
-        $registrarEmpleado->ctrRegistrarEmpleado();
-        ?>
       </form>
     </div>
   </div>
@@ -181,17 +177,6 @@ if ($_SESSION["loginPerfilMR"] == 4) {
               <div class="form-group">
                 <label for="edtECondicion">Condición Laboral &nbsp;</label>
                 <i class="fas fa-id-card-alt"></i> *
-                <div class="input-group">
-                  <select class="form-control" style="width: 100%;" name="edtECondicion" id="edtECondicion">
-                    <option value="0" id="edtECondicion1"></option>
-                    <?php
-                    $tipCondEmp = EmpleadosControlador::ctrListarCondiciones();
-                    foreach ($tipCondEmp as $key => $value) {
-                      echo '<option value="' . $value["idCondicionLab"] . '">' . $value["descCondicion"] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6">
@@ -209,15 +194,7 @@ if ($_SESSION["loginPerfilMR"] == 4) {
           <button type="submit" class="btn btn-secondary" id="btnEdtEmp"><i class="fas fa-save"></i> Guardar cambios</button>
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times-circle"></i> Salir</button>
         </div>
-        <?php
-        $editarEmpleado = new EmpleadosControlador();
-        $editarEmpleado->ctrEditarEmpleado();
-        ?>
       </form>
     </div>
   </div>
 </div>
-<?php
-$eliminarEmpleado = new EmpleadosControlador();
-$eliminarEmpleado->ctrEliminarEmpleado();
-?>

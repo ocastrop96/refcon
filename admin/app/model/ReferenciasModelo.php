@@ -9,13 +9,11 @@ class ReferenciasModelo
             $stmt = Conexion::conectar()->prepare("SELECT
             referencias.idReferencia, 
             referencias.nroHojaRef, 
-            date_format(referencias.fechaReferencia,'%d/%m/%Y') AS fechaReferencia, 
+            date_format( referencias.fechaReferencia, '%d/%m/%Y' ) AS fechaReferencia, 
             referencias.idDepartamento, 
-            departamentosh.nombreDept, 
             referencias.idEspecialidad, 
-            especialidades.nombreEsp, 
-            referencias.idServicio, 
-            servicios.nombServicio, 
+            referencias.idServicio,
+            establecimientos.codigoEstab,
             referencias.idEstablecimiento, 
             establecimientos.codigoEstab, 
             establecimientos.nombreEstablecimiento, 
@@ -30,7 +28,14 @@ class ReferenciasModelo
             referencias.motivo, 
             referencias.estadoAnula, 
             referencias.idEstado, 
-            estadoref.descEstado
+            estadoref.descEstado, 
+            CONCAT(
+                UPPER( departamentos.nombreDep ),
+                '/',
+                UPPER( provincias.nombreProvincia ),
+                '/',
+            UPPER( distritos.nombreDistrito )) AS ubicacion, 
+            CONCAT(especialidades.nombreEsp,' - ',servicios.nombServicio) AS descripcion
         FROM
             referencias
             INNER JOIN
@@ -61,6 +66,18 @@ class ReferenciasModelo
             estadoref
             ON 
                 referencias.idEstado = estadoref.idEstado
+            INNER JOIN
+            distritos
+            ON 
+                establecimientos.idDistrito = distritos.idDistrito
+            INNER JOIN
+            provincias
+            ON 
+                distritos.idProvincia = provincias.idProvincia
+            INNER JOIN
+            departamentos
+            ON 
+                provincias.idDepartamentos = departamentos.idDepartamento
                 WHERE estadoAnula = 1 AND $item = :$item
                 ORDER BY fechaReferencia DESC");
             $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);

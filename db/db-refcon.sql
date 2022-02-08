@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-02-2022 a las 21:06:55
+-- Tiempo de generación: 07-02-2022 a las 07:30:47
 -- Versión del servidor: 5.7.33
--- Versión de PHP: 7.4.25
+-- Versión de PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Perfiles_Users` ()   SELECT
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Perfiles_Users` ()  SELECT
 	roles.idRol, 
 	roles.nombreRol, 
 	roles.descripcion, 
@@ -33,7 +33,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Perfiles_Users` ()   SELECT
 FROM
 	roles$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Referencias` ()   SELECT
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Referencias` ()  SELECT
 	referencias.idReferencia, 
 	referencias.nroHojaRef, 
 	date_format(referencias.fechaReferencia,'%d/%m/%Y') AS fechaReferencia, 
@@ -55,7 +55,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Referencias` ()   SELECT
 	referencias.apeMaterno, 
 	referencias.nombres, 
 	referencias.motivo, 
-	referencias.activo, 
+	referencias.anulado, 
 	referencias.idEstado, 
 	estadoref.descEstado
 FROM
@@ -89,11 +89,17 @@ FROM
 	ON 
 		referencias.idEstado = estadoref.idEstado
 WHERE
-	activo = 1
+	anulado = 1
 ORDER BY
 	fechaReferencia DESC$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Usuarios` ()   SELECT
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Tipos_Documentos` ()  SELECT
+	tiposdoc.idTipoDoc, 
+	tiposdoc.nombreTipDoc
+FROM
+	tiposdoc$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Listar_Usuarios` ()  SELECT
 	usuarios.idUsuario,
 	usuarios.idRol,
 	roles.nombreRol,
@@ -111,7 +117,7 @@ FROM
 ORDER BY
 	usuarios.idRol ASC$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `LoginUsuario` (IN `_cuenta` VARCHAR(50))   SELECT
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LoginUsuario` (IN `_cuenta` VARCHAR(50))  SELECT
 	usuarios.idUsuario, 
 	usuarios.idRol, 
 	roles.nombreRol, 
@@ -131,7 +137,7 @@ FROM
 		usuarios.idRol = roles.idRol
 	WHERE login = _cuenta$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Registrar_Intentos` (IN `_idUsuario` INT(11))   UPDATE usuarios 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Registrar_Intentos` (IN `_idUsuario` INT(11))  UPDATE usuarios 
 SET intentos = intentos + 1 
 WHERE
 	idUsuario = _idUsuario$$
@@ -10722,31 +10728,35 @@ INSERT INTO `provincias` (`idProvincia`, `nombreProvincia`, `idDepartamentos`) V
 
 CREATE TABLE `referencias` (
   `idReferencia` int(11) NOT NULL,
-  `fechaReferencia` date DEFAULT NULL,
-  `idEstado` int(11) DEFAULT '1',
-  `idDepartamento` int(11) DEFAULT NULL,
-  `idEspecialidad` int(11) DEFAULT NULL,
-  `idServicio` int(11) DEFAULT NULL,
-  `idEstablecimiento` int(11) DEFAULT NULL,
-  `idTipoDoc` int(11) DEFAULT NULL,
-  `idSexo` int(11) DEFAULT NULL,
-  `nroDoc` varchar(15) COLLATE utf8_bin DEFAULT NULL,
-  `nroHojaRef` varchar(15) COLLATE utf8_bin DEFAULT NULL,
-  `apePaterno` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `fechaReferencia` date NOT NULL,
+  `idEstado` int(11) NOT NULL DEFAULT '1',
+  `idDepartamento` int(11) NOT NULL,
+  `idEspecialidad` int(11) NOT NULL,
+  `idServicio` int(11) NOT NULL,
+  `idEstablecimiento` int(11) NOT NULL,
+  `idTipoDoc` int(11) NOT NULL,
+  `idSexo` int(11) NOT NULL,
+  `nroDoc` varchar(15) COLLATE utf8_bin NOT NULL,
+  `nroHojaRef` varchar(15) COLLATE utf8_bin NOT NULL,
+  `apePaterno` varchar(50) COLLATE utf8_bin NOT NULL,
   `apeMaterno` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `nombres` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `nombres` varchar(50) COLLATE utf8_bin NOT NULL,
   `motivo` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-  `usuarioCrea` int(11) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `fechaCreacion` timestamp NULL DEFAULT NULL
+  `usuarioCrea` int(11) NOT NULL,
+  `fechaCreacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `anulado` int(11) DEFAULT '1',
+  `usuarioModifica` int(11) DEFAULT NULL,
+  `fechaModif` datetime DEFAULT NULL,
+  `usuarioAnula` int(11) DEFAULT NULL,
+  `fechaAnulacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `referencias`
 --
 
-INSERT INTO `referencias` (`idReferencia`, `fechaReferencia`, `idEstado`, `idDepartamento`, `idEspecialidad`, `idServicio`, `idEstablecimiento`, `idTipoDoc`, `idSexo`, `nroDoc`, `nroHojaRef`, `apePaterno`, `apeMaterno`, `nombres`, `motivo`, `usuarioCrea`, `activo`, `fechaCreacion`) VALUES
-(1, '2022-01-17', 1, 2, 27, 1373, 5733, 1, 1, '92196510', '5735-00098', 'BERROCAL', 'MONROY', 'CATALEYA BRIANNA ELENA', NULL, 1, 1, NULL);
+INSERT INTO `referencias` (`idReferencia`, `fechaReferencia`, `idEstado`, `idDepartamento`, `idEspecialidad`, `idServicio`, `idEstablecimiento`, `idTipoDoc`, `idSexo`, `nroDoc`, `nroHojaRef`, `apePaterno`, `apeMaterno`, `nombres`, `motivo`, `usuarioCrea`, `fechaCreacion`, `anulado`, `usuarioModifica`, `fechaModif`, `usuarioAnula`, `fechaAnulacion`) VALUES
+(1, '2022-01-17', 1, 2, 27, 1373, 5733, 1, 1, '92196510', '5735-00098', 'BERROCAL', 'MONROY', 'CATALEYA BRIANNA ELENA', NULL, 1, '2022-02-07 06:52:04', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

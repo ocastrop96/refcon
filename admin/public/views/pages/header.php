@@ -33,7 +33,7 @@
           <a href="#" class="dropdown-item dropdown-footer">Opciones del Usuario</a>
         </div> -->
     </li>
-    <input type="hidden" name="estatusLog" id="estatusLog" value="<?php echo $_SESSION["loginIdMR"]; ?>">
+    <input type="hidden" name="estatusLog" id="estatusLog" value="<?php echo $_SESSION["loginIdRef"]; ?>">
     <li class="nav-item">
       <a class="nav-link" href="signout" role="button">
         <i class="fas fa-sign-out-alt"></i>
