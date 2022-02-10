@@ -2,22 +2,22 @@
     <div class="card card-success">
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                     <div class="form-group">
                         <label>N° de Doc. de Identidad:<span class="text-danger">&nbsp;*</span></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Ingrese N° de documento" autocomplete="off" name="nDocUsuario" id="nDocUsuario" required>
+                            <input type="text" class="form-control" placeholder="Ingrese N° de documento" autocomplete="off" name="bsqDoc" id="bsqDoc">
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2" id="btnDNIUsuario">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" id="btnDNIConsulta">
                     <div class="form-group">
                         <label>Consulta:<span class="text-danger">&nbsp;</span></label>
                         <div class="input-group">
-                            <button type="button" class="btn btn-block btn-success" id="btnDNIU"><i class="fas fa-search"></i>&nbsp;Buscar</button>
+                            <button type="button" class="btn btn-block btn-success" id="btnDNIUCons"><i class="fas fa-search"></i>&nbsp;Buscar</button>
                         </div>
                     </div>
                 </div>

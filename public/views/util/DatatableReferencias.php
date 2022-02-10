@@ -1,9 +1,6 @@
 <?php
-// LLamada a controlador
 require_once "../../../app/controller/ReferenciasControlador.php";
-// LLamada a modelo
 require_once "../../../app/model/ReferenciasModelo.php";
-
 class DatatableReferencias
 {
     public function mostrarTablaReferencias()

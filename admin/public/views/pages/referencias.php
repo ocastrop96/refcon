@@ -33,6 +33,9 @@ if ($_SESSION["loginPerfilRef"] == 4) {
         <input type="hidden" id="idUsuarioAnu" value="<?php echo $_SESSION["loginIdRef"]; ?>">
       </div>
       <div class="card-body">
+      <input type="hidden" id="currentYear" value="<?php date_default_timezone_set('America/Lima');
+                                                      $anioActual = date('Y');
+                                                      echo $anioActual; ?>">
         <table id="datatableReferencias" class="table table-bordered table-hover dt-responsive datatableReferencias">
           <thead>
             <tr>

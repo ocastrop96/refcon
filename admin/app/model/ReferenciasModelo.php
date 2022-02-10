@@ -122,10 +122,10 @@ class ReferenciasModelo
         $stmt = null;
     }
 
-    static public function mdlValidarNroReferenciaxDni($dni,$nro)
+    static public function mdlValidarNroReferenciaxDni($anio,$nro)
     {
-        $stmt = Conexion::conectar()->prepare("CALL ValidarNroReferenciaxDni(:dni,:nro)");
-        $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt = Conexion::conectar()->prepare("CALL ValidarNroReferenciaxDni(:anio,:nro)");
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
         $stmt->bindParam(":nro", $nro, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetch();

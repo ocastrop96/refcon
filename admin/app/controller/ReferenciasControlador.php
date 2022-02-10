@@ -25,9 +25,9 @@ class ReferenciasControlador
         return $rptLisEstaRef;
     }
 
-    static public function ctrValidarNroReferenciaxDni($dni, $nro)
+    static public function ctrValidarNroReferenciaxDni($anio, $nro)
     {
-        $rptListValidaRef = ReferenciasModelo::mdlValidarNroReferenciaxDni($dni, $nro);
+        $rptListValidaRef = ReferenciasModelo::mdlValidarNroReferenciaxDni($anio, $nro);
         return $rptListValidaRef;
     }
 

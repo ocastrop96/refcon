@@ -77,13 +77,13 @@ class AjaxReferencias
     }
 
     // Validacion de N° de Referencia con DNI
-    public $dniPaciente;
+    public $anioReferencia;
     public $nroReferencia;
     public function ajaxValidarDNINroReferencia()
     {
-        $valorDni = $this->dniPaciente;
+        $valorAnio = $this->anioReferencia;
         $valorNroRef = $this->nroReferencia;
-        $respuesta = ReferenciasControlador::ctrValidarNroReferenciaxDni($valorDni, $valorNroRef);
+        $respuesta = ReferenciasControlador::ctrValidarNroReferenciaxDni($valorAnio, $valorNroRef);
 
         echo json_encode($respuesta);
     }
@@ -131,7 +131,7 @@ if (isset($_POST["idReferencia"])) {
 // Validar Referencia
 if (isset($_POST["nroReferencia"])) {
     $list6 = new AjaxReferencias();
-    $list6->dniPaciente = $_POST["dniPaciente"];
+    $list6->anioReferencia = $_POST["anioReferencia"];
     $list6->nroReferencia = $_POST["nroReferencia"];
     $list6->ajaxValidarDNINroReferencia();
 }

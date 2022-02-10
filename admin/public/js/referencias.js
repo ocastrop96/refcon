@@ -776,14 +776,14 @@ $("#edtRefServ").select2(
 );
 
 $("#rgNroRef").on("change", function () {
-    var dni = $("#rgNdoc").val();
+    var anio = $("#currentYear").val();
     var nro = $(this).val();
     var nroRef = nro.replace(/^(0+)/g, '');
 
     $("#rgNroRef").val(nroRef)
 
     var datos = new FormData();
-    datos.append("dniPaciente", dni);
+    datos.append("anioReferencia", anio);
     datos.append("nroReferencia", nroRef);
     $.ajax({
         url: "public/views/src/ajaxReferencias.php",
@@ -813,18 +813,20 @@ $("#rgNroRef").on("change", function () {
 
 // Validación de Referencia Modificacion de  Registro
 $("#edtNroRef").on("change", function () {
-    var dni = $("#edtNdoc").val();
+    var anio = $("#currentYear").val();
     var nroAnt = $("#edtNroRefAnt").val();
 
     var nro = $(this).val();
 
     var nroRef = nro.replace(/^(0+)/g, '');
+
     $("#edtNroRef").val(nroRef)
 
     if (nroRef != nroAnt) {
         var datos = new FormData();
-        datos.append("dniPaciente", dni);
+        datos.append("anioReferencia", anio);
         datos.append("nroReferencia", nroRef);
+
         $.ajax({
             url: "public/views/src/ajaxReferencias.php",
             method: "POST",
