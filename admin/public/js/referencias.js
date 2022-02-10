@@ -866,8 +866,43 @@ $(".datatableReferencias tbody").on("click", ".btnAnularReferencia", function ()
         confirmButtonText: '¡Sí, anular referencia!'
     }).then(function (result) {
         if (result.value) {
-            window.location = "index.php?ruta=referencias&idReferencia=" + idReferencia+"&idUsuario="+idUsuario;
+            window.location = "index.php?ruta=referencias&idReferencia=" + idReferencia + "&idUsuario=" + idUsuario;
         }
     })
 });
 // Anulación de Referencias
+
+// Obligatoriedad del campo motivo de Rechazo u Observación
+$("#rgRefEstado").on("change", function () {
+    var estadoRefc = $(this).val();
+    if (estadoRefc > 0) {
+        if (estadoRefc == 4 || estadoRefc == 5) {
+            $("#rgRefMotivo").attr("required", true);
+        }
+        else {
+            $("#rgRefMotivo").attr("required", false);
+        }
+    }
+    else {
+        $("#rgRefMotivo").attr("required", false);
+    }
+
+});
+
+
+$("#edtRefEstado").on("change", function () {
+    var estadoRefc = $(this).val();
+    if (estadoRefc > 0) {
+        if (estadoRefc == 4 || estadoRefc == 5) {
+            $("#edtRefMotivo").attr("required", true);
+        }
+        else {
+            $("#edtRefMotivo").attr("required", false);
+        }
+    }
+    else {
+        $("#edtRefMotivo").attr("required", false);
+    }
+
+});
+// Obligatoriedad del campo motivo de Rechazo u Observación

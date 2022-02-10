@@ -201,21 +201,7 @@ class ReferenciasControlador
                 "fechaAnulacion" => $FechaAnulacion
             );
             $rptAnulaReferencia = ReferenciasModelo::mdlAnularReferencia($datos);
-            if ($rptAnulaReferencia != "error") {
-                echo '<script>
-                Swal.fire({
-                  icon: "error",
-                  title: "¡La referencia seleccionada no está Pendiente. No se anuló!",
-                  showConfirmButton: true,
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                }).then((result)=>{
-                  if(result.value){
-                      window.location = "referencias";
-                  }});
-            </script>';
-            }
-            else{
+            if ($rptAnulaReferencia == "ok") {
                 echo '<script>
                 Swal.fire({
                   icon: "success",
@@ -228,9 +214,20 @@ class ReferenciasControlador
                       window.location = "referencias";
                   }});
             </script>';
-
+            } else {
+                echo '<script>
+                Swal.fire({
+                  icon: "error",
+                  title: "¡Referencia no está pendiente, no se puede anular!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false
+                }).then((result)=>{
+                  if(result.value){
+                      window.location = "referencias";
+                  }});
+            </script>';
             }
-
         }
     }
 }

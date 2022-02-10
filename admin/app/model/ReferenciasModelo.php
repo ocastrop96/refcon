@@ -199,15 +199,15 @@ class ReferenciasModelo
 
     static public function mdlAnularReferencia($datos){
         $stmt = Conexion::conectar()->prepare("CALL Anular_Referencia(:idReferencia,:usuarioAnula,:fechaAnulacion, @val)");
-        $stmt->bindParam(":idReferencia", $datos, PDO::PARAM_INT);
-        $stmt->bindParam(":usuarioAnula", $datos, PDO::PARAM_INT);
-        $stmt->bindParam(":fechaAnulacion", $datos, PDO::PARAM_STR);
+        $stmt->bindParam(":idReferencia", $datos["idReferencia"], PDO::PARAM_INT);
+        $stmt->bindParam(":usuarioAnula", $datos["usuarioAnula"], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaAnulacion", $datos["fechaAnulacion"], PDO::PARAM_STR);
         $stmt->execute();
         // Validación de mensaje
         $value = $stmt->fetch();
         $val2 = $value['mensaje'];
-        if ($val2 != '') {
-            return $val2;
+        if ($val2 == 1) {
+            return "ok";
         } else {
             return "error";
         }
