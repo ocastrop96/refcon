@@ -30,12 +30,14 @@ if ($_SESSION["loginPerfilRef"] == 4) {
       <div class="card-body">
         <button type="btn" class="btn btn-secondary" data-toggle="modal" data-target="#modal-cargar-referencia"><i class="fas fa-file-invoice"></i> Registrar Referencia
         </button>
+        <input type="hidden" id="idUsuarioAnu" value="<?php echo $_SESSION["loginIdRef"]; ?>">
       </div>
       <div class="card-body">
         <table id="datatableReferencias" class="table table-bordered table-hover dt-responsive datatableReferencias">
           <thead>
             <tr>
               <th style="width: 10px">#</th>
+              <th>Año</th>
               <th>N° Referencia</th>
               <th>Fecha</th>
               <th>N° Doc</th>
@@ -154,15 +156,6 @@ if ($_SESSION["loginPerfilRef"] == 4) {
           <div class="row">
             <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
-                <label for="rgNroRef">N° Referencia: &nbsp;</label>
-                <i class="fas fa-search"></i>
-                <div class="input-group">
-                  <input type="text" class="form-control" name="rgNroRef" id="rgNroRef" placeholder="Ingrese Nro Referencia" maxlength="15" autocomplete="off">
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-              <div class="form-group">
                 <label for="rgFechaRef">Fecha de Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
@@ -170,9 +163,17 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 </div>
               </div>
             </div>
+
             <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-
-
+              <div class="form-group">
+                <label for="rgNroRef">N° Referencia: &nbsp;</label>
+                <i class="fas fa-search"></i>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="rgNroRef" id="rgNroRef" placeholder="Ingrese Nro Referencia" minlength="7" maxlength="11" autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
                 <label for="rgRefEstado">Estado Referencia: &nbsp;</label>
                 <i class="fas fa-id-card"></i> *
@@ -221,7 +222,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 <label for="rgRefAnamnesis">Anamnesis o Motivo de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <textarea cols="30" rows="2" class="form-control" name="rgRefAnamnesis" id="rgRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="200" autocomplete="off" required></textarea>
+                  <textarea cols="30" rows="4" class="form-control" name="rgRefAnamnesis" id="rgRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="200" autocomplete="off" required></textarea>
                 </div>
               </div>
             </div>
@@ -233,7 +234,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 <label for="rgRefMotivo">Motivo de Rechazo u Observación de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <textarea cols="30" rows="2" class="form-control" name="rgRefMotivo" id="rgRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="200" autocomplete="off"></textarea>
+                  <textarea cols="30" rows="4" class="form-control" name="rgRefMotivo" id="rgRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="200" autocomplete="off"></textarea>
                 </div>
               </div>
             </div>
@@ -297,11 +298,11 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-3 d-none" id="btnDniPac">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 d-none" id="btnDniPacEdt">
               <div class="form-group">
                 <label>Búsqueda:<span class="text-danger">&nbsp;*</span></label>
                 <div class="input-group">
-                  <button type="button" class="btn btn-block btn-success" id="btnDNIPaci"><i class="fas fa-search"></i>&nbsp;Consulta DNI</button>
+                  <button type="button" class="btn btn-block btn-success" id="btnDNIPaciEdt"><i class="fas fa-search"></i>&nbsp;Consulta DNI</button>
                 </div>
               </div>
             </div>
@@ -357,19 +358,20 @@ if ($_SESSION["loginPerfilRef"] == 4) {
           <div class="row">
             <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
-                <label for="edtNroRef">N° Referencia: &nbsp;</label>
+                <label for="edtFechaRef">Fecha de Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="edtNroRef" id="edtNroRef" placeholder="Ingrese Nro Referencia" maxlength="15" autocomplete="off">
+                  <input type="text" name="edtFechaRef" id="edtFechaRef" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="dd/mm/yyyy" required>
                 </div>
               </div>
             </div>
             <div class="col-12 col-sm-3 col-md-3 col-lg-3">
               <div class="form-group">
-                <label for="edtFechaRef">Fecha de Referencia: &nbsp;</label>
+                <label for="edtNroRef">N° Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <input type="text" name="edtFechaRef" id="edtFechaRef" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask autocomplete="off" placeholder="dd/mm/yyyy" required>
+                  <input type="hidden" id="edtNroRefAnt">
+                  <input type="text" class="form-control" name="edtNroRef" id="edtNroRef" placeholder="Ingrese Nro Referencia" minlength="7" maxlength="11" autocomplete="off">
                 </div>
               </div>
             </div>
@@ -458,3 +460,8 @@ if ($_SESSION["loginPerfilRef"] == 4) {
     </div>
   </div>
 </div>
+
+<?php
+$anularReferencia = new ReferenciasControlador();
+$anularReferencia->ctrAnularReferencia();
+?>

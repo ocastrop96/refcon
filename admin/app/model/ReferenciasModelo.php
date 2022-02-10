@@ -20,6 +20,7 @@ class ReferenciasModelo
             referencias.idTipoDoc, 
             tiposdoc.nombreTipDoc, 
             referencias.nroDoc, 
+            referencias.anioReferencia, 
             referencias.idSexo, 
             sexousuario.descSexo, 
             referencias.apePaterno, 
@@ -121,9 +122,20 @@ class ReferenciasModelo
         $stmt = null;
     }
 
+    static public function mdlValidarNroReferenciaxDni($dni,$nro)
+    {
+        $stmt = Conexion::conectar()->prepare("CALL ValidarNroReferenciaxDni(:dni,:nro)");
+        $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt->bindParam(":nro", $nro, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch();
+        $stmt->close();
+        $stmt = null;
+    }
+
     static public function mdlRegistrarReferencia($datos)
     {
-        $stmt = Conexion::conectar()->prepare("CALL Registrar_Referencia(:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:anamnesis,:motivo,:usuarioCrea,:fechaCreacion)");
+        $stmt = Conexion::conectar()->prepare("CALL Registrar_Referencia(:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:anioReferencia,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:anamnesis,:motivo,:usuarioCrea,:fechaCreacion)");
 
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
         $stmt->bindParam(":idServicio", $datos["idServicio"], PDO::PARAM_INT);
@@ -131,6 +143,7 @@ class ReferenciasModelo
         $stmt->bindParam(":idTipoDoc", $datos["idTipoDoc"], PDO::PARAM_INT);
         $stmt->bindParam(":idSexo", $datos["idSexo"], PDO::PARAM_INT);
         $stmt->bindParam(":usuarioCrea", $datos["usuarioCrea"], PDO::PARAM_INT);
+        $stmt->bindParam(":anioReferencia", $datos["anioReferencia"], PDO::PARAM_INT);
 
         $stmt->bindParam(":fechaReferencia", $datos["fechaReferencia"], PDO::PARAM_STR);
         $stmt->bindParam(":nroDoc", $datos["nroDoc"], PDO::PARAM_STR);
@@ -153,9 +166,7 @@ class ReferenciasModelo
 
     static public function mdlEditarReferencia($datos)
     {
-        // $stmt = Conexion::conectar()->prepare("CALL Editar_Referencia(1,'2022-02-01',2,149,5734,1,1,'77478995','05736-000525','CASTRO','PALACIOS','OLGER IVAN','VIENE POR FALTA DE ESPECIALISTAS EN PS','XD',1,'2022-02-08 10:26:00')");
-
-        $stmt = Conexion::conectar()->prepare("CALL Editar_Referencia(:idReferencia,:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:anamnesis,:motivo,:usuarioModif,:fechaModificacion)");
+        $stmt = Conexion::conectar()->prepare("CALL Editar_Referencia(:idReferencia,:fechaReferencia,:idEstado,:idServicio,:idEstablecimiento,:idTipoDoc,:idSexo,:nroDoc,:anioReferencia,:nroHojaRef,:apePaterno,:apeMaterno,:nombres,:anamnesis,:motivo,:usuarioModif,:fechaModificacion)");
 
         $stmt->bindParam(":idReferencia", $datos["idReferencia"], PDO::PARAM_INT);
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
@@ -164,6 +175,9 @@ class ReferenciasModelo
         $stmt->bindParam(":idTipoDoc", $datos["idTipoDoc"], PDO::PARAM_INT);
         $stmt->bindParam(":idSexo", $datos["idSexo"], PDO::PARAM_INT);
         $stmt->bindParam(":usuarioModif", $datos["usuarioModif"], PDO::PARAM_INT);
+
+        $stmt->bindParam(":anioReferencia", $datos["anioReferencia"], PDO::PARAM_INT);
+
         $stmt->bindParam(":fechaReferencia", $datos["fechaReferencia"], PDO::PARAM_STR);
         $stmt->bindParam(":nroDoc", $datos["nroDoc"], PDO::PARAM_STR);
         $stmt->bindParam(":nroHojaRef", $datos["nroHojaRef"], PDO::PARAM_STR);
@@ -179,6 +193,25 @@ class ReferenciasModelo
         } else {
             return "error";
         }
+        $stmt->close();
+        $stmt = null;
+    }
+
+    static public function mdlAnularReferencia($datos){
+        $stmt = Conexion::conectar()->prepare("CALL Anular_Referencia(:idReferencia,:usuarioAnula,:fechaAnulacion, @val)");
+        $stmt->bindParam(":idReferencia", $datos, PDO::PARAM_INT);
+        $stmt->bindParam(":usuarioAnula", $datos, PDO::PARAM_INT);
+        $stmt->bindParam(":fechaAnulacion", $datos, PDO::PARAM_STR);
+        $stmt->execute();
+        // Validación de mensaje
+        $value = $stmt->fetch();
+        $val2 = $value['mensaje'];
+        if ($val2 != '') {
+            return $val2;
+        } else {
+            return "error";
+        }
+        // Validación de mensaje
         $stmt->close();
         $stmt = null;
     }

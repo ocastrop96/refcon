@@ -138,10 +138,6 @@ $('#rgFechaRef').datepicker({
     'language': 'es',
     'startDate': '-7d',
     'endDate': '+0d'
-    // minDate: -7,
-    // 'setStartDate': "01-01-1900",
-    // 'startDate': new Date() - 7,
-    // 'endDate': new Date(),
 });
 
 $("#edtFechaRef").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
@@ -229,6 +225,7 @@ $("#regRefServ").select2(
             data: function (params) {
                 return {
                     searchTerm2: params.term,
+                    sex1: $("#rgSexo").val(),
                 };
             },
             processResults: function (response) {
@@ -240,6 +237,18 @@ $("#regRefServ").select2(
         },
     }
 );
+
+// Condicionar Sexo x Servicio
+$("#rgSexo").on("change", function () {
+    $("#regRefServ").empty().trigger('change');
+});
+
+$("#edtSexo").on("change", function () {
+    $("#edtRefServ").empty().trigger('change');
+    $("#seleccionServ1").remove();
+    $("#seleccionServ11").remove();
+});
+// Condicionar Sexo x Servicio
 
 $("#rgTipoDoc").on("change", function () {
     let comboDocPaciente = $(this).val();
@@ -271,6 +280,76 @@ $("#rgTipoDoc").on("change", function () {
         $("#rgRefAM").val("");
     }
 });
+
+$("#edtTipoDoc").on("change", function () {
+    let comboDocPaciente = $(this).val();
+    if (comboDocPaciente > 0) {
+        if (comboDocPaciente == 1) {
+            $("#btnDniPacEdt").removeClass("d-none");
+            $("#edtNdoc").attr("maxlength", "8");
+        }
+        else {
+            $("#btnDniPacEdt").addClass("d-none");
+            $("#edtNdoc").attr("maxlength", "15");
+            $("#edtNdoc").val("");
+            $("#edtNombresPac").val("");
+            $("#edtRefAP").val("");
+            $("#edtRefAM").val("");
+        }
+    }
+    else {
+        $("#btnDniPacEdt").addClass("d-none");
+        $("#edtNdoc").attr("maxlength", "8");
+        $("#edtNdoc").val("");
+        $("#edtNombresPac").val("");
+        $("#edtRefAP").val("");
+        $("#edtRefAM").val("");
+    }
+});
+
+$("#btnDNIPaciEdt").on("click", function () {
+    var tipDoc = $("#edtTipoDoc").val();
+    var nDoc = $("#edtNdoc").val();
+    if (tipDoc == 1 && nDoc.length == 8) {
+        $.ajax({
+            type: "GET",
+            url:
+                "https://dniruc.apisperu.com/api/v1/dni/" +
+                nDoc +
+                "?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im9jYXN0cm9wLnRpQGdtYWlsLmNvbSJ9.XtrYx8wlARN2XZwOZo6FeLuYDFT6Ljovf7_X943QC_E",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data["dni"] != null) {
+                    toastr.success("Datos cargados con éxito", "RENIEC");
+
+                    $("#edtNombresPac").val(data["nombres"]);
+                    $("#edtRefAP").val(data["apellidoPaterno"]);
+                    $("#edtRefAM").val(data["apellidoMaterno"]);
+                    $("#edtSexo").focus();
+                }
+                else {
+                    toastr.warning("Ingrese datos manualmente", "RENIEC");
+                    $("#edtNombresPac").val("");
+                    $("#edtRefAP").val("");
+                    $("#edtRefAM").val("");
+                    $("#edtNombresPac").focus();
+                }
+            },
+            failure: function (data) {
+                toastr.info("No se pudo conectar los datos", "RENIEC");
+            },
+            error: function (data) {
+                $("#edtNombresPac").val("");
+                $("#edtRefAP").val("");
+                $("#edtRefAM").val("");
+                $("#edtNombresPac").focus();
+            },
+        });
+    }
+});
+
+
 $("#btnDNIPaci").on("click", function () {
     var tipDoc = $("#rgTipoDoc").val();
     var nDoc = $("#rgNdoc").val();
@@ -320,7 +399,6 @@ $.validator.addMethod(
     },
     "Value must not equal arg."
 );
-
 $("#btnRegReferencia").on("click", function () {
     $("#formRegRef").validate({
         rules: {
@@ -431,7 +509,115 @@ $("#btnRegReferencia").on("click", function () {
     });
 });
 
+$("#btnEdtReferencia").on("click", function () {
+    $("#formEdtRef").validate({
+        rules: {
+            edtTipoDoc: {
+                valueNotEquals: "0",
+                required: true,
+            },
+            edtSexo: {
+                valueNotEquals: "0",
+                required: true,
+            },
+            edtRefEstado: {
+                valueNotEquals: "0",
+                required: true,
+            },
+            edtRefEstable: {
+                valueNotEquals: "0",
+                required: true,
+            },
+            edtRefServ: {
+                valueNotEquals: "0",
+                required: true,
+            },
 
+            edtNdoc: {
+                required: true,
+                maxlength: 15,
+                minlength: 8,
+            },
+
+            edtNombresPac: {
+                required: true,
+            },
+            edtRefAP: {
+                required: true,
+            },
+            edtRefAM: {
+                required: true,
+            },
+            edtNroRef: {
+                required: true,
+            },
+            edtFechaRef: {
+                required: true,
+            },
+            edtRefAnamnesis: {
+                required: true,
+            },
+        },
+        messages: {
+            edtTipoDoc: {
+                valueNotEquals: "Seleccione Tipo Documento",
+                required: "Seleccione Tipo Documento",
+            },
+            edtSexo: {
+                valueNotEquals: "Seleccione Sexo",
+                required: "Seleccione Sexo",
+            },
+            edtRefEstado: {
+                valueNotEquals: "Seleccione Estado",
+                required: "Seleccione Estado",
+            },
+            edtRefEstable: {
+                valueNotEquals: "Seleccione Establecimiento",
+                required: "Seleccione Establecimiento",
+            },
+            edtRefServ: {
+                valueNotEquals: "Seleccione Servicio/Especialidad",
+                required: "Seleccione Servicio/Especialidad",
+            },
+
+            edtNdoc: {
+                required: "Ingrese N° Documento",
+                maxlength: "Ingrese máximo 15 digitos",
+                minlength: "Ingrese mínimo 8 digitos",
+            },
+
+            edtNombresPac: {
+                required: "Ingrese Nombres",
+            },
+            edtRefAP: {
+                required: "Ingrese Apellido Paterno",
+            },
+            edtRefAM: {
+                required: "Ingrese Apellido Materno",
+            },
+            edtNroRef: {
+                required: "Ingrese N° Referencia",
+            },
+            edtFechaRef: {
+                required: "Ingrese Fecha Referencia",
+            },
+            edtRefAnamnesis: {
+                required: "Ingrese anamnesis",
+            },
+        },
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        },
+    });
+});
 
 $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function () {
     var idReferencia = $(this).attr("idReferencia");
@@ -450,6 +636,15 @@ $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function ()
         success: function (respuesta) {
             console.log(respuesta);
             $("#idReferencia").val(respuesta["idReferencia"]);
+
+            if (respuesta["idTipoDoc"] == 1) {
+                $("#btnDniPacEdt").removeClass("d-none");
+
+            }
+            else {
+                $("#btnDniPacEdt").addClass("d-none");
+
+            }
             $("#edtTipoDoc1").val(respuesta["idTipoDoc"]);
             $("#edtTipoDoc1").html(respuesta["nombreTipDoc"]);
 
@@ -461,7 +656,10 @@ $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function ()
             $("#edtSexo1").val(respuesta["idSexo"]);
             $("#edtSexo1").html(respuesta["descSexo"]);
 
+            $("#edtNroRefAnt").val(respuesta["nroHojaRef"]);
+
             $("#edtNroRef").val(respuesta["nroHojaRef"]);
+
             $("#edtFechaRef").val(respuesta["fechaReferencia"]);
 
             $("#edtRefEstado1").val(respuesta["idEstado"]);
@@ -561,6 +759,8 @@ $("#edtRefServ").select2(
             data: function (params) {
                 return {
                     searchTerm4: params.term,
+                    sex2: $("#edtSexo").val(),
+
                 };
             },
             processResults: function (response) {
@@ -574,20 +774,100 @@ $("#edtRefServ").select2(
         },
     }
 );
-$(".datatableEmpleadosMR tbody").on("click", ".btnEliminarEmpleado", function () {
-    var idEmpleado = $(this).attr("idEmpleado");
+
+$("#rgNroRef").on("change", function () {
+    var dni = $("#rgNdoc").val();
+    var nro = $(this).val();
+    var nroRef = nro.replace(/^(0+)/g, '');
+
+    $("#rgNroRef").val(nroRef)
+
+    var datos = new FormData();
+    datos.append("dniPaciente", dni);
+    datos.append("nroReferencia", nroRef);
+    $.ajax({
+        url: "public/views/src/ajaxReferencias.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            if (respuesta) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "¡El N° de Referencia ingresado ya existe!",
+                    showConfirmButton: false,
+                    timer: 1600
+                });
+                $("#rgNroRef").val("");
+                $("#rgNroRef").focus();
+
+            }
+        }
+    })
+
+})
+// Validación de Referencia Primer Registro
+
+// Validación de Referencia Modificacion de  Registro
+$("#edtNroRef").on("change", function () {
+    var dni = $("#edtNdoc").val();
+    var nroAnt = $("#edtNroRefAnt").val();
+
+    var nro = $(this).val();
+
+    var nroRef = nro.replace(/^(0+)/g, '');
+    $("#edtNroRef").val(nroRef)
+
+    if (nroRef != nroAnt) {
+        var datos = new FormData();
+        datos.append("dniPaciente", dni);
+        datos.append("nroReferencia", nroRef);
+        $.ajax({
+            url: "public/views/src/ajaxReferencias.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (respuesta) {
+                if (respuesta) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "¡El N° de Referencia ingresado ya existe!",
+                        showConfirmButton: false,
+                        timer: 1600
+                    });
+                    $("#edtNroRef").val("");
+                    $("#edtNroRef").focus();
+
+                }
+            }
+        })
+    }
+})
+// Validación de Referencia Modificacion de  Registro
+
+// Anulación de Referencias
+$(".datatableReferencias tbody").on("click", ".btnAnularReferencia", function () {
+    var idReferencia = $(this).attr("idReferencia");
+    var idUsuario = $("#idUsuarioAnu").val();
     Swal.fire({
-        title: '¿Está seguro(a) de eliminar al empleado(a)?',
+        title: '¿Está seguro(a) de anular la Referencia seleccionada ?',
         text: "¡Si no lo está, puede cancelar la acción!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#343a40',
         cancelButtonText: 'Cancelar',
         cancelButtonColor: '#d33',
-        confirmButtonText: '¡Sí, eliminar empleado!'
+        confirmButtonText: '¡Sí, anular referencia!'
     }).then(function (result) {
         if (result.value) {
-            window.location = "index.php?ruta=empleados&idEmpleado=" + idEmpleado;
+            window.location = "index.php?ruta=referencias&idReferencia=" + idReferencia+"&idUsuario="+idUsuario;
         }
     })
 });
+// Anulación de Referencias

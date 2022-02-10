@@ -38,6 +38,7 @@ class DatatableReferencias
 
                 $datos_json .= '[
                     "' . ($i + 1) . '",
+                    "' . $referencias[$i]["anioReferencia"] . '",
                     "' . $referencias[$i]["nroHojaRef"] . '",
                     "' . $referencias[$i]["fechaReferencia"] . '",
                     "' . $referencias[$i]["nombreTipDoc"] . '-' . $referencias[$i]["nroDoc"] . '",
@@ -55,6 +56,7 @@ class DatatableReferencias
             $datos_json = '{
                 "data": [';
             $datos_json .= '[
+                "-",
                 "-",
                 "-",
                 "-",

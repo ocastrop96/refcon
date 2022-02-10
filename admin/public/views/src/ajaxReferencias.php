@@ -34,11 +34,14 @@ class AjaxReferencias
     }
 
     public $dato2;
+    public $datoSex1;
+
     public function ajaxBuscarServicio()
     {
         $valorTermino = $this->dato2;
+        $valorSexo = $this->datoSex1;
 
-        $stmt = Conexion::conectar()->prepare("CALL Buscar_Servicio('$valorTermino')");
+        $stmt = Conexion::conectar()->prepare("CALL Buscar_Servicio('$valorTermino',$valorSexo)");
         $stmt->execute();
         $data = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -48,11 +51,14 @@ class AjaxReferencias
     }
 
     public $dato4;
+    public $datoSex2;
+
     public function ajaxBuscarServicio2()
     {
         $valorTermino = $this->dato4;
+        $valorSexo = $this->datoSex2;
 
-        $stmt = Conexion::conectar()->prepare("CALL Buscar_Servicio('$valorTermino')");
+        $stmt = Conexion::conectar()->prepare("CALL Buscar_Servicio('$valorTermino',$valorSexo)");
         $stmt->execute();
         $data = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -69,6 +75,20 @@ class AjaxReferencias
         $respuesta = ReferenciasControlador::ctrListarReferencias($item, $valor);
         echo json_encode($respuesta);
     }
+
+    // Validacion de N° de Referencia con DNI
+    public $dniPaciente;
+    public $nroReferencia;
+    public function ajaxValidarDNINroReferencia()
+    {
+        $valorDni = $this->dniPaciente;
+        $valorNroRef = $this->nroReferencia;
+        $respuesta = ReferenciasControlador::ctrValidarNroReferenciaxDni($valorDni, $valorNroRef);
+
+        echo json_encode($respuesta);
+    }
+    // Validacion de N° de Referencia con DNI
+
 }
 // Búsqueda de Empleado
 if (isset($_POST["searchTerm"])) {
@@ -76,7 +96,6 @@ if (isset($_POST["searchTerm"])) {
     $list1->dato = $_POST["searchTerm"];
     $list1->ajaxBuscarEstablecimiento();
 }
-
 
 if (isset($_POST["searchTerm3"])) {
     $list4 = new AjaxReferencias();
@@ -88,13 +107,14 @@ if (isset($_POST["searchTerm3"])) {
 if (isset($_POST["searchTerm2"])) {
     $list2 = new AjaxReferencias();
     $list2->dato2 = $_POST["searchTerm2"];
+    $list2->datoSex1 = $_POST["sex1"];
+
     $list2->ajaxBuscarServicio();
 }
-
-
 if (isset($_POST["searchTerm4"])) {
     $list5 = new AjaxReferencias();
     $list5->dato4 = $_POST["searchTerm4"];
+    $list5->datoSex2 = $_POST["sex2"];
     $list5->ajaxBuscarServicio2();
 }
 // Busqueda de Servicio
@@ -105,4 +125,13 @@ if (isset($_POST["idReferencia"])) {
     $list3 = new AjaxReferencias();
     $list3->idReferencia = $_POST["idReferencia"];
     $list3->ajaxListarReferencia();
+}
+
+
+// Validar Referencia
+if (isset($_POST["nroReferencia"])) {
+    $list6 = new AjaxReferencias();
+    $list6->dniPaciente = $_POST["dniPaciente"];
+    $list6->nroReferencia = $_POST["nroReferencia"];
+    $list6->ajaxValidarDNINroReferencia();
 }

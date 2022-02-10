@@ -25,6 +25,12 @@ class ReferenciasControlador
         return $rptLisEstaRef;
     }
 
+    static public function ctrValidarNroReferenciaxDni($dni, $nro)
+    {
+        $rptListValidaRef = ReferenciasModelo::mdlValidarNroReferenciaxDni($dni, $nro);
+        return $rptListValidaRef;
+    }
+
     static public function ctrRegistrarReferencia()
     {
         if (isset($_POST["rgTipoDoc"])) {
@@ -37,6 +43,9 @@ class ReferenciasControlador
                 $datefRef1 = str_replace('/', '-', $fRef1);
                 $fechaReferencia = date('Y-m-d', strtotime($datefRef1));
 
+                $anioReferencia = date('Y', strtotime($datefRef1));
+
+
                 $datos = array(
                     "idEstado" => $_POST["rgRefEstado"],
                     "idServicio" => $_POST["regRefServ"],
@@ -46,6 +55,7 @@ class ReferenciasControlador
                     "usuarioCrea" => $_POST["userRegistra"],
                     "fechaReferencia" => $fechaReferencia,
                     "fechaCreacion" => $FechaRegistro,
+                    "anioReferencia" => $anioReferencia,
                     "nroDoc" => $_POST["rgNdoc"],
                     "nroHojaRef" => $_POST["rgNroRef"],
                     "apePaterno" => $_POST["rgRefAP"],
@@ -112,6 +122,8 @@ class ReferenciasControlador
                 $datefRef1 = str_replace('/', '-', $fRef1);
                 $fechaReferencia = date('Y-m-d', strtotime($datefRef1));
 
+                $anioReferencia = date('Y', strtotime($datefRef1));
+
                 $datos = array(
                     "idReferencia" => $_POST["idReferencia"],
                     "idEstado" => $_POST["edtRefEstado"],
@@ -122,6 +134,7 @@ class ReferenciasControlador
                     "usuarioModif" => $_POST["userEdita"],
                     "fechaReferencia" => $fechaReferencia,
                     "fechaModificacion" => $FechaModificacion,
+                    "anioReferencia" => $anioReferencia,
                     "nroDoc" => $_POST["edtNdoc"],
                     "nroHojaRef" => $_POST["edtNroRef"],
                     "apePaterno" => $_POST["edtRefAP"],
@@ -146,7 +159,7 @@ class ReferenciasControlador
                     setTimeout(redirect,1500);
                 </script>';
                 } else {
-                    
+
                     echo '<script>
                     Swal.fire({
                     icon: "error",
@@ -179,5 +192,45 @@ class ReferenciasControlador
 
     static public function ctrAnularReferencia()
     {
+        if (isset($_GET["idReferencia"])) {
+            date_default_timezone_set('America/Lima');
+            $FechaAnulacion = date("Y-m-d H:i:s");
+            $datos = array(
+                "idReferencia" => $_GET["idReferencia"],
+                "usuarioAnula" => $_GET["idUsuario"],
+                "fechaAnulacion" => $FechaAnulacion
+            );
+            $rptAnulaReferencia = ReferenciasModelo::mdlAnularReferencia($datos);
+            if ($rptAnulaReferencia != "error") {
+                echo '<script>
+                Swal.fire({
+                  icon: "error",
+                  title: "¡La referencia seleccionada no está Pendiente. No se anuló!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false
+                }).then((result)=>{
+                  if(result.value){
+                      window.location = "referencias";
+                  }});
+            </script>';
+            }
+            else{
+                echo '<script>
+                Swal.fire({
+                  icon: "success",
+                  title: "Se anuló con éxito la referencia seleccionada",
+                  showConfirmButton: true,
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false
+                }).then((result)=>{
+                  if(result.value){
+                      window.location = "referencias";
+                  }});
+            </script>';
+
+            }
+
+        }
     }
 }
