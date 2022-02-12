@@ -1,10 +1,10 @@
-CargarTablaReferenciasProceso();
+CargarTablaReferenciasProceso($("#bsqDoc").val(), $("#anioActual").val());
 CargarTablaReferenciasCitadas();
 
 
-function CargarTablaReferenciasProceso() {
+function CargarTablaReferenciasProceso(dni,anio) {
     $(".datatableReferenciasProceso").DataTable({
-        // ajax: "public/views/util/DatatableReferencias.php",
+        ajax: "public/views/util/DatatableConsultaReferencias.php?dni="+dni+"&anio="+anio,
         deferRender: true,
         retrieve: true,
         processing: true,
@@ -20,9 +20,9 @@ function CargarTablaReferenciasProceso() {
     });
 }
 
-function CargarTablaReferenciasCitadas() {
+function CargarTablaReferenciasCitadas(dni,anio) {
     $(".datatableReferenciasCitados").DataTable({
-        // ajax: "public/views/util/DatatableReferencias.php",
+        ajax: "public/views/util/DatatableConsultaReferenciasSIGH.php?dni="+dni+"&anio="+anio,
         deferRender: true,
         retrieve: true,
         processing: true,

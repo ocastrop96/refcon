@@ -10,6 +10,9 @@
                                 <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
                             </div>
                             <input type="text" class="form-control" placeholder="Ingrese N° de documento" autocomplete="off" name="bsqDoc" id="bsqDoc">
+                            <input type="hidden" id="anioActual" value="<?php date_default_timezone_set('America/Lima');
+                                                                        $anioActual = date('Y');
+                                                                        echo $anioActual; ?>">
                         </div>
                     </div>
                 </div>
@@ -62,12 +65,13 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>N° Referencia</th>
-                        <th>Fecha</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Fecha Cita</th>
                         <th>N° Doc</th>
                         <th>Paciente</th>
                         <th>Establecimiento Origen</th>
                         <th>Servicio Destino</th>
-                        <th>Opciones</th>
+                        <!-- <th>Opciones</th> -->
                     </tr>
                 </thead>
             </table>
