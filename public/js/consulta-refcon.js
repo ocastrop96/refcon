@@ -6,7 +6,7 @@ $("#bsqDoc").keyup(function () {
 });
 
 CargarTablaReferenciasProceso($("#bsqDoc").val(), $("#anioActual").val());
-// CargarTablaReferenciasCitadas();
+CargarTablaReferenciasCitadas($("#bsqDoc").val(), $("#anioActual").val());
 
 $("#btnDNIUCons").click(function () {
     var dni = $("#bsqDoc").val();
@@ -21,9 +21,11 @@ $("#btnDNIUCons").click(function () {
         $("#bsqDoc").val("");
         $("#bsqDoc").focus();
         CargarTablaReferenciasProceso(dni, anio);
+        CargarTablaReferenciasCitadas(dni, anio);
     }
     else {
         CargarTablaReferenciasProceso(dni, anio);
+        CargarTablaReferenciasCitadas(dni, anio);
     }
 
 });
@@ -54,39 +56,32 @@ function CargarTablaReferenciasProceso(dni, anio) {
         console.log("error");
     })
 }
-// function CargarTablaReferenciasProceso(dni, anio) {
-//     // $('.datatable-datatableReferenciasProceso').DataTable().ajax.reload();
-//     $(".datatableReferenciasProceso").DataTable({
-//         ajax: "public/views/util/DatatableConsultaReferencias.php?dni=" + dni + "&anio=" + anio,
-//         deferRender: true,
-//         retrieve: true,
-//         processing: true,
-//         paging: true,
-//         lengthChange: true,
-//         searching: true,
-//         ordering: false,
-//         info: true,
-//         autoWidth: false,
-//         language: {
-//             url: "public/views/resources/js/dataTables.spanish.lang",
-//         },
-//     });
-// }
 
-// function CargarTablaReferenciasCitadas(dni, anio) {
-//     $(".datatableReferenciasCitados").DataTable({
-//         ajax: "public/views/util/DatatableConsultaReferenciasSIGH.php?dni=" + dni + "&anio=" + anio,
-//         deferRender: true,
-//         retrieve: true,
-//         processing: true,
-//         paging: true,
-//         lengthChange: true,
-//         searching: true,
-//         ordering: false,
-//         info: true,
-//         autoWidth: false,
-//         language: {
-//             url: "public/views/resources/js/dataTables.spanish.lang",
-//         },
-//     });
-// }
+
+function CargarTablaReferenciasCitadas(dni, anio) {
+    $.ajax({
+        url: "public/views/src/ajaxConsultas.php",
+        method: "POST",
+        dataType: "html",
+        data: { dni2: dni, anio2: anio}
+    }).done(function (respuesta) {
+        $("#bloque2").html(respuesta);
+        $(".datatableReferenciasCitadas").DataTable({
+            deferRender: true,
+            retrieve: true,
+            processing: true,
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: false,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "public/views/resources/js/dataTables.spanish.lang",
+            },
+        });
+        console.log(respuesta);
+    }).fail(function () {
+        console.log("error");
+    })
+}

@@ -7,7 +7,7 @@ class ReferenciasControlador
     }
 
     static public function ctrListarReferenciasWebSIGH($dni,$anio){
-        $rptBusquedaRef = ReferenciasModelo::mdlBuscarReferencias($dni,$anio);
+        $rptBusquedaRef = ReferenciasModelo::mdlBuscarReferenciasSIGH($dni,$anio);
         return $rptBusquedaRef;
     }
 }

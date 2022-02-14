@@ -30,36 +30,45 @@
 </div>
 
 <div class="container-fluid">
-    <div class="card card-lightblue">
-        <div class="card-header">
-            <h5 class="card-title m-0 font-weight-bold">Solicitudes en proceso </h5>&nbsp;&nbsp;<i class="fas fa-spinner"></i>
+    <div class="row">
+        <div class="col-6">
+            <div class="card card-lightblue">
+                <div class="card-header">
+                    <h5 class="card-title m-0 font-weight-bold">Solicitudes en proceso </h5>&nbsp;&nbsp;<i class="fas fa-spinner"></i>
+                </div>
+                <div class="card-body" id="bloque1">
+                </div>
+            </div>
         </div>
-        <div class="card-body" id="bloque1">
+        <div class="col-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h5 class="card-title m-0 font-weight-bold">Solicitudes con Cita </h5>&nbsp;&nbsp;<i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="card-body" id="bloque2">
+                    <!-- <table id="datatableReferenciasCitados" class="table table-bordered table-hover dt-responsive datatableReferenciasCitados">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>N° Referencia</th>
+                                <th>Fecha Solicitud</th>
+                                <th>Fecha Cita</th>
+                                <th>N° Doc</th>
+                                <th>Paciente</th>
+                                <th>Establecimiento Origen</th>
+                                <th>Servicio Destino</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                    </table> -->
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="card card-success">
-        <div class="card-header">
-            <h5 class="card-title m-0 font-weight-bold">Solicitudes con Cita </h5>&nbsp;&nbsp;<i class="fas fa-calendar-check"></i>
-        </div>
-        <div class="card-body">
-            <table id="datatableReferenciasCitados" class="table table-bordered table-hover dt-responsive datatableReferenciasCitados">
-                <thead>
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>N° Referencia</th>
-                        <th>Fecha Solicitud</th>
-                        <th>Fecha Cita</th>
-                        <th>N° Doc</th>
-                        <th>Paciente</th>
-                        <th>Establecimiento Origen</th>
-                        <th>Servicio Destino</th>
-                        <!-- <th>Opciones</th> -->
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-</div>
+<?php
+$sighPrometeo = ReferenciasControlador::ctrListarReferenciasWebSIGH('71389420',2022);
+ var_dump($sighPrometeo);
+?>
