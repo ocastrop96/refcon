@@ -2,7 +2,7 @@
     <div class="card card-success">
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <div class="form-group">
                         <label>N° de Doc. de Identidad:<span class="text-danger">&nbsp;*</span></label>
                         <div class="input-group">
@@ -34,22 +34,7 @@
         <div class="card-header">
             <h5 class="card-title m-0 font-weight-bold">Solicitudes en proceso </h5>&nbsp;&nbsp;<i class="fas fa-spinner"></i>
         </div>
-        <div class="card-body">
-            <table id="datatableReferenciasProceso" class="table table-bordered table-hover dt-responsive datatableReferenciasProceso">
-                <thead>
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>N° Referencia</th>
-                        <th>Fecha</th>
-                        <th>N° Doc</th>
-                        <th>Paciente</th>
-                        <th>Est. Origen</th>
-                        <th>Servicio Dest.</th>
-                        <th>Estado</th>
-                        <th>Opciones</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="card-body" id="bloque1">
         </div>
     </div>
 </div>

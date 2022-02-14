@@ -8,11 +8,13 @@ class DatatableConsultaReferencias
         $dni = $_GET["dni"];
         $anio = $_GET["anio"];
 
+        $consultRefs = ReferenciasControlador::ctrListarReferenciasWeb($dni, $anio);
+        $total = count($consultRefs);
 
         $datos_json = '{
             "data": [';
         $datos_json .= '[
-            "-",
+            "'.$total.'",
             "-",
             "-",
             "-",
