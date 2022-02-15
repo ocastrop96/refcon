@@ -103,8 +103,8 @@ class AjaxReferenciasWeb
                         <th>Año</th>
                         <th>N° Referencia</th>
                         <th>Fecha Solicitud</th>
-                        <th>Hora Cita</th>
-                        <th>Fecha Cita</th>
+                        <th class='font-weight-bold'>Fecha Cita</th>
+                        <th class='font-weight-bold'>Hora Cita</th>
                         <th>Especialidad | Servicio</th>
                     </tr>
                 </thead>
@@ -113,11 +113,12 @@ class AjaxReferenciasWeb
             foreach ($datosRefs as $key => $value) {
                 $dataRefsHTML .= "<tr>
                     <td>" . ($key + 1) . "</td>
-                    <td>$totalDataRefs</td>
+                    <td>$value[anioReferencia]</td>
                     <td>$value[nroReferencia]</td>
-                    <td>$value[FechaSolicitud]</td>
-                    <td>$value[FechaCita]</td>
-                    <td>$value[NombEspecialidad] | $value[NombreServicio]</td>
+                    <td >$value[FechaSolicitud]</td>
+                    <td class='font-weight-bold'>$value[FechaCita]</td>
+                    <td class='font-weight-bold'>$value[HoraInicio] - $value[HoraFin]</td>
+                    <td>$value[NombEspecialidad] - $value[NombreServicio]</td>
                 </tr>";
             }
 
@@ -129,7 +130,7 @@ class AjaxReferenciasWeb
         <thead>
             <tr>
                 <th style='width: 10px'>#</th>
-                <th>$totalDataRefs</th>
+                <th>Año</th>
                 <th>N° Referencia</th>
                 <th>Fecha Solicitud</th>
                 <th>Fecha Cita</th>

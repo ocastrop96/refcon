@@ -85,6 +85,23 @@ class AjaxReferencias
     }
     // Validacion de N° de Referencia con DNI
 
+        // Validacion de N° de Referencia con DNI Galenhos
+        public $anioReferencia2;
+        public $nroReferencia2;
+        public $dniReferencia2;
+
+        public function ajaxValidarDNINroReferenciaxGalen()
+        {
+            $valorAnio = $this->anioReferencia2;
+            $valorNroRef = $this->nroReferencia2;
+            $valorDniRef = $this->dniReferencia2;
+
+            $respuesta = ReferenciasControlador::ctrValidarNroReferenciaxGalen($valorAnio, $valorDniRef,$valorNroRef);
+    
+            echo json_encode($respuesta);
+        }
+        // Validacion de N° de Referencia con DNI Galenhos
+
 }
 // Búsqueda de Empleado
 if (isset($_POST["searchTerm"])) {
@@ -130,3 +147,16 @@ if (isset($_POST["nroReferencia"])) {
     $list6->nroReferencia = $_POST["nroReferencia"];
     $list6->ajaxValidarDNINroReferencia();
 }
+
+
+// Validar Referencia X Galenhos
+if (isset($_POST["confirmacion22"])) {
+    $list10 = new AjaxReferencias();
+    $list10->anioReferencia2 = $_POST["anioReferencia2"];
+    $list10->dniReferencia2 = $_POST["dniReferencia2"];
+    $list10->nroReferencia2 = $_POST["nroReferencia2"];
+    $list10->ajaxValidarDNINroReferenciaxGalen();
+}
+// Validar Referencia X Galenhos
+
+

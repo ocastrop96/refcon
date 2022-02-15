@@ -109,8 +109,20 @@ class ReferenciasModelo
 
     static public function mdlBuscarReferenciasSIGH($dni, $anio)
     {
-        $stmt = ConexionConsulta::conectar()->prepare("exec ConsultaRefconWeb @dniUsuario = :dni, @anio = :anio");
+        $stmt = ConexionConsulta::conectar()->prepare("exec Usp_Select_ConsultaRefconWeb @dniUsuario = :dni, @anio = :anio");
         $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+        $stmt->close();
+        $stmt = null;
+    }
+
+    static public function mdlBuscarReferenciasxNro($anio,$dni,$referencia)
+    {
+        $stmt = ConexionConsulta::conectar()->prepare("exec Usp_Select_BuscarReferenciasxNroWeb @anio = :anio, @dni = :dni, @referencia = :referencia");
+        $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
         $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();

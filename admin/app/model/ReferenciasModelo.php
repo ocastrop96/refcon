@@ -1,5 +1,7 @@
 <?php
 require_once "dbConnect.php";
+require_once "MSdb.php";
+
 
 class ReferenciasModelo
 {
@@ -212,6 +214,18 @@ class ReferenciasModelo
             return "error";
         }
         // Validación de mensaje
+        $stmt->close();
+        $stmt = null;
+    }
+
+    static public function mdlBuscarReferenciasxNro2($anio,$dni,$referencia)
+    {
+        $stmt = ConexionConsulta::conectar()->prepare("exec Usp_Select_BuscarReferenciasxNroWeb @anio = :anio, @dni = :dni, @referencia = :referencia");
+        $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
         $stmt->close();
         $stmt = null;
     }

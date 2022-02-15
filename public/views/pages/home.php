@@ -31,7 +31,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <div class="card card-lightblue">
                 <div class="card-header">
                     <h5 class="card-title m-0 font-weight-bold">Solicitudes en proceso </h5>&nbsp;&nbsp;<i class="fas fa-spinner"></i>
@@ -40,27 +40,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-6">
             <div class="card card-success">
                 <div class="card-header">
                     <h5 class="card-title m-0 font-weight-bold">Solicitudes con Cita </h5>&nbsp;&nbsp;<i class="fas fa-calendar-check"></i>
                 </div>
                 <div class="card-body" id="bloque2">
-                    <!-- <table id="datatableReferenciasCitados" class="table table-bordered table-hover dt-responsive datatableReferenciasCitados">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>N° Referencia</th>
-                                <th>Fecha Solicitud</th>
-                                <th>Fecha Cita</th>
-                                <th>N° Doc</th>
-                                <th>Paciente</th>
-                                <th>Establecimiento Origen</th>
-                                <th>Servicio Destino</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                    </table> -->
                 </div>
             </div>
         </div>
@@ -130,3 +115,11 @@
         </div>
     </div>
 </div>
+
+<!-- <?php
+    $respuestaPrueba = ReferenciasModelo::mdlBuscarReferenciasxNro(2022,'06849096','5757-00278');
+
+    foreach ($respuestaPrueba as $key => $value) {
+        echo $value["anioReferencia"];
+    }
+?> -->

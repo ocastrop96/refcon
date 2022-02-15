@@ -117,6 +117,8 @@ session_start();
     <script type="text/javascript" src="public/js/signin.js"></script>
     <script type="text/javascript" src="public/js/usuarios.js"></script>
     <script type="text/javascript" src="public/js/referencias.js"></script>
+    <script type="text/javascript" src="public/js/reporte-general.js"></script>
+
     <!-- Scripts JS Propios -->
 </body>
 

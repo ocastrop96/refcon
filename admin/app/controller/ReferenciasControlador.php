@@ -31,6 +31,12 @@ class ReferenciasControlador
         return $rptListValidaRef;
     }
 
+    static public function ctrValidarNroReferenciaxGalen($anio, $dni,$referencia)
+    {
+        $rptListValidaRef = ReferenciasModelo::mdlBuscarReferenciasxNro2($anio, $dni,$referencia);
+        return $rptListValidaRef;
+    }
+
     static public function ctrRegistrarReferencia()
     {
         if (isset($_POST["rgTipoDoc"])) {

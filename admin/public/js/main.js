@@ -26,7 +26,7 @@ function ValidarEstadoLog(idLog) {
             processData: false,
             dataType: "json",
             success: function (respuesta) {
-                console.log(respuesta);
+                // console.log(respuesta);
                 if (respuesta["estado"] == 2) {
                     window.location = "signout";
                 }

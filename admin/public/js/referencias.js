@@ -768,36 +768,76 @@ $("#edtRefServ").select2(
 
 $("#rgNroRef").on("change", function () {
     var anio = $("#currentYear").val();
+    var dni = $("#rgNdoc").val();
+
     var nro = $(this).val();
     var nroRef = nro.replace(/^(0+)/g, '');
 
+    var confirmacion22 = 0;
     $("#rgNroRef").val(nroRef)
 
-    var datos = new FormData();
-    datos.append("anioReferencia", anio);
-    datos.append("nroReferencia", nroRef);
+    // Condiciones de Búsqueda
+    var datos2 = new FormData();
+    datos2.append("anioReferencia2", anio);
+    datos2.append("confirmacion22", confirmacion22);
+    datos2.append("dniReferencia2", dni);
+    datos2.append("nroReferencia2", nroRef);
     $.ajax({
         url: "public/views/src/ajaxReferencias.php",
         method: "POST",
-        data: datos,
+        data: datos2,
         cache: false,
         contentType: false,
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-            if (respuesta) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "¡El N° de Referencia ingresado ya existe!",
-                    showConfirmButton: false,
-                    timer: 1600
-                });
-                $("#rgNroRef").val("");
-                $("#rgNroRef").focus();
 
+            // console.log(respuesta.length);
+            if (respuesta.length > 0) {
+                Swal.fire({
+                    icon: "error",
+                    title: "¡El N° de Referencia ya tiene cita registrada!",
+                    showConfirmButton: true,
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false
+                }).then((result) => {
+                    if (result.value) {
+                        $("#rgNroRef").val("");
+                        $("#rgNroRef").focus();
+                    }
+                });
+            }
+
+            else {
+                var datos = new FormData();
+                datos.append("anioReferencia", anio);
+                datos.append("nroReferencia", nroRef);
+                $.ajax({
+                    url: "public/views/src/ajaxReferencias.php",
+                    method: "POST",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta) {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "¡El N° de Referencia ingresado ya existe!",
+                                showConfirmButton: false,
+                                timer: 1600
+                            });
+                            $("#rgNroRef").val("");
+                            $("#rgNroRef").focus();
+                        }
+                    }
+                })
             }
         }
     })
+
+    // Condiciones de Búsqueda
 
 })
 // Validación de Referencia Primer Registro
