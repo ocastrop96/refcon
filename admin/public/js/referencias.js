@@ -216,7 +216,7 @@ $("#regRefServ").select2(
             }
         },
         scrollAfterSelect: true,
-        placeholder: 'Ingrese nombre Servicio/Especialidad destino',
+        placeholder: 'Ingrese Especialidad destino',
         ajax: {
             url: "public/views/src/ajaxReferencias.php",
             type: "post",
@@ -225,7 +225,7 @@ $("#regRefServ").select2(
             data: function (params) {
                 return {
                     searchTerm2: params.term,
-                    sex1: $("#rgSexo").val(),
+                    // sex1: $("#rgSexo").val(),
                 };
             },
             processResults: function (response) {
@@ -237,18 +237,6 @@ $("#regRefServ").select2(
         },
     }
 );
-
-// Condicionar Sexo x Servicio
-$("#rgSexo").on("change", function () {
-    $("#regRefServ").empty().trigger('change');
-});
-
-$("#edtSexo").on("change", function () {
-    $("#edtRefServ").empty().trigger('change');
-    $("#seleccionServ1").remove();
-    $("#seleccionServ11").remove();
-});
-// Condicionar Sexo x Servicio
 
 $("#rgTipoDoc").on("change", function () {
     let comboDocPaciente = $(this).val();
@@ -634,7 +622,7 @@ $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function ()
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-            console.log(respuesta);
+            // console.log(respuesta);
             $("#idReferencia").val(respuesta["idReferencia"]);
 
             if (respuesta["idTipoDoc"] == 1) {
@@ -670,10 +658,10 @@ $(".datatableReferencias tbody").on("click", ".btnEditarReferencia", function ()
             $("#edtRefEstable1").val(respuesta["idEstablecimiento"]);
             $("#edtRefEstable1").html(respuesta["nombreEstablecimiento"]);
 
-            $("#seleccionServ1").html(respuesta["descripcion"]);
+            $("#seleccionServ1").html(respuesta["nombreEsp"]);
 
-            $("#edtRefServ1").val(respuesta["idServicio"]);
-            $("#edtRefServ1").html(respuesta["descripcion"]);
+            $("#edtRefServ1").val(respuesta["idEspecialidad"]);
+            $("#edtRefServ1").html(respuesta["nombreEsp"]);
 
             $("#edtRefMotivo").val(respuesta["motivo"]);
             $("#edtRefAnamnesis").val(respuesta["anamnesis"]);
@@ -727,6 +715,9 @@ $("#edtRefEstable").select2(
     }
 );
 
+$("#modal-editar-referencia").on('hidden.bs.modal', function (e) {
+    window.location = "referencias";
+});
 
 $("#edtRefServ").select2(
     {
@@ -740,7 +731,7 @@ $("#edtRefServ").select2(
             },
             searching: function () {
 
-                return "Buscando Servicio/Especialidad ...";
+                return "Buscando Especialidad ...";
             },
             inputTooShort: function () {
                 return "Ingrese 2 o más caracteres";
@@ -750,7 +741,7 @@ $("#edtRefServ").select2(
             }
         },
         scrollAfterSelect: true,
-        placeholder: 'Ingrese nombre Servicio/Especialidad destino',
+        placeholder: 'Ingrese Especialidad destino',
         ajax: {
             url: "public/views/src/ajaxReferencias.php",
             type: "post",
@@ -759,7 +750,7 @@ $("#edtRefServ").select2(
             data: function (params) {
                 return {
                     searchTerm4: params.term,
-                    sex2: $("#edtSexo").val(),
+                    // sex2: $("#edtSexo").val(),
 
                 };
             },

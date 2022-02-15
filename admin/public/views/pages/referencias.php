@@ -209,11 +209,11 @@ if ($_SESSION["loginPerfilRef"] == 4) {
 
             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
               <div class="form-group">
-                <label for="regRefServ">Servicio Destino: &nbsp;</label>
+                <label for="regRefServ">Especialidad Destino: &nbsp;</label>
                 <i class="fas fa-id-card"></i> *
                 <div class="input-group">
                   <select class="form-control" style="width: 100%;" id="regRefServ" name="regRefServ">
-                    <option value="0">Seleccione Servicio Destino</option>
+                    <option value="0">Seleccione Especialidad Destino</option>
                   </select>
                 </div>
               </div>
@@ -416,7 +416,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
           <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
-                <label for="regRefServ">Servicio Destino: &nbsp;</label>
+                <label for="regRefServ">Especialidad Destino: &nbsp;</label>
                 <i class="fas fa-id-card"></i> *
                 <span class="font-weight-bolder text-danger" id="seleccionServ11">ACTUAL : </span>
                 <span class="font-weight-bolder" id="seleccionServ1"></span>

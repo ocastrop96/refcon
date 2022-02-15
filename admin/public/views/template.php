@@ -95,6 +95,7 @@ session_start();
                 $_GET["ruta"] == "dashboard" ||
                 $_GET["ruta"] == "usuarios" ||
                 $_GET["ruta"] == "referencias" ||
+                $_GET["ruta"] == "reporte-general" ||
                 $_GET["ruta"] == "signout"
             ) {
                 include "pages/" . $_GET["ruta"] . ".php";

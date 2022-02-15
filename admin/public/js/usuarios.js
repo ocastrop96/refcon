@@ -259,6 +259,7 @@ $("#rgDni").change(function () {
                     title: "El DNI Ingresado ya se encuentra registrado",
                 });
                 $("#rgDni").val("");
+                $("#rgDni").focus();
                 $("#rgNombres").val("");
                 $("#rgApellidos").val("");
                 $("#rgCorreo").val("");
@@ -398,14 +399,15 @@ $(".datatableUsuariosMR tbody").on("click", ".btnEditarUsuario", function () {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+            console.log(respuesta);
             $("#idUsuario").val(respuesta["idUsuario"]);
             $("#edtDni").val(respuesta["dni"]);
             $("#edtNombres").val(respuesta["nombres"]);
             $("#edtApellidos").val(respuesta["apellidos"]);
-            $("#edtPerfil").val(respuesta["perfil"]);
-            $("#edtPerfil").html(respuesta["descPerfil"]);
+            $("#edtPerfil").val(respuesta["idRol"]);
+            $("#edtPerfil").html(respuesta["nombreRol"]);
             $("#edtCorreo").val(respuesta["correo"]);
-            $("#edtUsuario").val(respuesta["cuenta"]);
+            $("#edtUsuario").val(respuesta["login"]);
             $("#passActual").val(respuesta["clave"]);
         },
     });

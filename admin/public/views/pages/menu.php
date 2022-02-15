@@ -25,8 +25,6 @@
                         </p>
                     </a>
                 </li>
-
-                <!-- Bloque de opciones de menú por usuario -->
                 <?php
                 if ($_SESSION["loginPerfilRef"] == 1) {
                     echo '<li class="nav-header">Administración</li>
@@ -46,8 +44,39 @@
                                 Referencias
                             </p>
                         </a>
+                    </li>
+    
+                    <li class="nav-header">Reportes</li>
+                    <li class="nav-item">
+                        <a href="reporte-general" class="nav-link">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                General
+                            </p>
+                        </a>
                     </li>';
-                } elseif ($_SESSION["loginPerfilRef"] == 2) {
+                } else if ($_SESSION["loginPerfilRef"] == 2) {
+                    echo '
+                    <li class="nav-header">Gestión</li>
+                    <li class="nav-item">
+                        <a href="referencias" class="nav-link">
+                            <i class="nav-icon fas fa-file-invoice"></i>
+                            <p>
+                                Referencias
+                            </p>
+                        </a>
+                    </li>
+    
+                    <li class="nav-header">Reportes</li>
+                    <li class="nav-item">
+                        <a href="reporte-general" class="nav-link">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                General
+                            </p>
+                        </a>
+                    </li>';
+                } else if ($_SESSION["loginPerfilRef"] == 3) {
                     echo '<li class="nav-header">Gestión</li>
                     <li class="nav-item">
                         <a href="referencias" class="nav-link">
@@ -57,103 +86,33 @@
                             </p>
                         </a>
                     </li>';
-                } elseif ($_SESSION["loginPerfilRef"] == 4) {
-                    echo '<li class="nav-header">Gestión</li>
-                    <li class="nav-item">
-                        <a href="licencias" class="nav-link">
-                            <i class="nav-icon fas fa-file-invoice"></i>
-                            <p>
-                                Licencias
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="salud-ocupacional" class="nav-link">
-                            <i class="nav-icon fas fa-user-md"></i>
-                            <p>
-                                Salud Ocupacional
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Reportes</li>
-                    <li class="nav-item">
-                        <a href="reporte-empleado" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
-                        <p>
-                            Empleado
-                        </p>
-                        </a>
-                    </li>';
-                } else {
-                    echo '<li class="nav-header">Referencias</li>
-                    <li class="nav-item">
-                        <a href="Referencias" class="nav-link">
-                            <i class="nav-icon fas fa-file-invoice"></i>
-                            <p>
-                                Referencias
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Gestión</li>
-                    <li class="nav-item">
-                        <a href="licencias" class="nav-link">
-                            <i class="nav-icon fas fa-file-invoice"></i>
-                            <p>
-                                Licencias
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="salud-ocupacional" class="nav-link">
-                            <i class="nav-icon fas fa-user-md"></i>
-                            <p>
-                                Salud Ocupacional
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Reportes</li>
-                    <li class="nav-item">
-                        <a href="reporte-empleado" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                Empleado
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="reporte-coordinador" class="nav-link">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <p>
-                                Coordinador
-                            </p>
-                        </a>
-                    </li>';
                 }
-
                 ?>
-                <!-- Bloque de opciones de menú por usuario -->
-                <!-- <li class="nav-header">Reportes</li>
+                <!-- <li class="nav-header">Administración</li>
                 <li class="nav-item">
-                    <a href="reporte-coordinador" class="nav-link">
+                    <a href="usuarios" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Usuarios
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-header">Gestión</li>
+                <li class="nav-item">
+                    <a href="referencias" class="nav-link">
+                        <i class="nav-icon fas fa-file-invoice"></i>
+                        <p>
+                            Referencias
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header">Reportes</li>
+                <li class="nav-item">
+                    <a href="reporte-general" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Coordinador
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="reporte-jefatura" class="nav-link">
-                        <i class="nav-icon fas fa-chart-line"></i>
-                        <p>
-                            Jefatura
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="reporte-responsable" class="nav-link">
-                        <i class="nav-icon fas fa-chart-bar"></i>
-                        <p>
-                            Responsable
+                            General
                         </p>
                     </a>
                 </li> -->

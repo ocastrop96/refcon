@@ -224,7 +224,7 @@ if ($_SESSION["loginPerfilRef"] == 2 || $_SESSION["loginPerfilRef"] == 3 || $_SE
                                         <?php
                                         $tipPerf = UsuariosControlador::ctrListarTipoRoles();
                                         foreach ($tipPerf as $key => $value) {
-                                            echo '<option value="' . $value["idPerfil"] . '">' . $value["descPerfil"] . '</option>';
+                                            echo '<option value="' . $value["idRol"] . '">' . $value["nombreRol"] . '</option>';
                                         }
                                         ?>
                                     </select>

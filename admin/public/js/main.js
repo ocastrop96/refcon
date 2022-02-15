@@ -11,7 +11,7 @@ $(document).ready(function () {
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 })
 
-window.onbeforeunload = ValidarEstadoLog($("#estatusLog").val());
+window.onbeforeunload = ValidarEstadoLog($("#idLog").val());
 function ValidarEstadoLog(idLog) {
     if (idLog) {
         var idLogUs = idLog;
@@ -26,6 +26,7 @@ function ValidarEstadoLog(idLog) {
             processData: false,
             dataType: "json",
             success: function (respuesta) {
+                console.log(respuesta);
                 if (respuesta["estado"] == 2) {
                     window.location = "signout";
                 }

@@ -37,18 +37,18 @@ class ReferenciasModelo
                 UPPER( provincias.nombreProvincia ),
                 '/',
             UPPER( distritos.nombreDistrito )) AS ubicacion, 
-            CONCAT(especialidades.nombreEsp,' - ',servicios.nombServicio) AS descripcion
+            CONCAT(especialidades.nombreEsp) AS nombreEsp
         FROM
             referencias
-            INNER JOIN
+            left JOIN
             departamentosh
             ON 
                 referencias.idDepartamento = departamentosh.idDepartamentoH
-            INNER JOIN
+            LEFT JOIN
             especialidades
             ON 
                 referencias.idEspecialidad = especialidades.idEspecialidad
-            INNER JOIN
+            LEFT JOIN
             servicios
             ON 
                 referencias.idServicio = servicios.idServicio

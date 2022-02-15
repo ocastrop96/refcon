@@ -20,19 +20,28 @@ class DatatableReferencias
             for ($i = 0; $i < count($referencias); $i++) {
 
                 // Botones de Opciones
-                $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarReferencia' idReferencia='" . $referencias[$i]["idReferencia"] . "' data-toggle='modal' data-target='#modal-editar-referencia'><i class='fas fa-edit'></i></button><button class='btn btn-danger btnAnularReferencia' data-toggle='tooltip' data-placement='left' title='Anular Referencia' idReferencia='" . $referencias[$i]["idReferencia"] . "'><i class='fas fa-window-close'></i></button></div>";
+                
 
                 // Botones Estado Referencias
                 if ($referencias[$i]["idEstado"] == 1) {
                     $estadoRef = "<button type='button' class='btn btn-block btn-secondary font-weight-bold' data-toggle='tooltip' data-placement='left' title='" . $referencias[$i]["descEstado"] . "'><i class='fas fa-history'></i> &nbsp; " . $referencias[$i]["descEstado"] . "</button>";
+                    $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarReferencia' idReferencia='" . $referencias[$i]["idReferencia"] . "' data-toggle='modal' data-target='#modal-editar-referencia'><i class='fas fa-edit'></i></button><button class='btn btn-danger btnAnularReferencia' data-toggle='tooltip' data-placement='left' title='Anular Referencia' idReferencia='" . $referencias[$i]["idReferencia"] . "'><i class='fas fa-window-close'></i></button></div>";
                 } else if ($referencias[$i]["idEstado"] == 2) {
                     $estadoRef = "<button type='button' class='btn btn-block btn-success font-weight-bold' data-toggle='tooltip' data-placement='left' title='" . $referencias[$i]["descEstado"] . "'><i class='fas fa-check-circle'></i> &nbsp; " . $referencias[$i]["descEstado"] . "</button>";
+
+                    $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarReferencia' idReferencia='" . $referencias[$i]["idReferencia"] . "' data-toggle='modal' data-target='#modal-editar-referencia'><i class='fas fa-edit'></i></button><button class='btn btn-danger btnAnularReferencia' data-toggle='tooltip' data-placement='left' title='Anular Referencia' idReferencia='" . $referencias[$i]["idReferencia"] . "'><i class='fas fa-window-close'></i></button></div>";
                 } else if ($referencias[$i]["idEstado"] == 3) {
                     $estadoRef = "<button type='button' class='btn btn-block btn-success font-weight-bold' data-toggle='tooltip' data-placement='left' title='" . $referencias[$i]["descEstado"] . "'><i class='fas fa-check-circle'></i> &nbsp; " . $referencias[$i]["descEstado"] . "</button>";
+
+                    $botones = "";
+
                 } else if ($referencias[$i]["idEstado"] == 4) {
                     $estadoRef = "<button type='button' class='btn btn-block btn-danger font-weight-bold' data-toggle='tooltip' data-placement='left' title='" . $referencias[$i]["descEstado"] . "'><i class='fas fa-window-close'></i> &nbsp; " . $referencias[$i]["descEstado"] . "</button>";
+
+                    $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarReferencia' idReferencia='" . $referencias[$i]["idReferencia"] . "' data-toggle='modal' data-target='#modal-editar-referencia'><i class='fas fa-edit'></i></button><button class='btn btn-danger btnAnularReferencia' data-toggle='tooltip' data-placement='left' title='Anular Referencia' idReferencia='" . $referencias[$i]["idReferencia"] . "'><i class='fas fa-window-close'></i></button></div>";
                 } else if ($referencias[$i]["idEstado"] == 5) {
                     $estadoRef = "<button type='button' class='btn btn-block btn-warning font-weight-bold' data-toggle='tooltip' data-placement='left' title='" . $referencias[$i]["descEstado"] . "'><i class='fas fa-exclamation-triangle'></i> &nbsp; " . $referencias[$i]["descEstado"] . "</button>";
+                    $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarReferencia' idReferencia='" . $referencias[$i]["idReferencia"] . "' data-toggle='modal' data-target='#modal-editar-referencia'><i class='fas fa-edit'></i></button><button class='btn btn-danger btnAnularReferencia' data-toggle='tooltip' data-placement='left' title='Anular Referencia' idReferencia='" . $referencias[$i]["idReferencia"] . "'><i class='fas fa-window-close'></i></button></div>";
                 }
                 // Botones Estado Referencias
 

@@ -4,6 +4,98 @@ require_once "MSdb.php";
 
 class ReferenciasModelo
 {
+    static public function mdlListarReferenciasW($item, $valor)
+    {
+        if ($item != null) {
+            $stmt = Conexion::conectar()->prepare("SELECT
+            referencias.idReferencia, 
+            referencias.nroHojaRef, 
+            date_format( referencias.fechaReferencia, '%d/%m/%Y' ) AS fechaReferencia, 
+            referencias.idDepartamento, 
+            referencias.idEspecialidad, 
+            referencias.idServicio,
+            establecimientos.codigoEstab,
+            referencias.idEstablecimiento, 
+            establecimientos.codigoEstab, 
+            establecimientos.nombreEstablecimiento, 
+            referencias.idTipoDoc, 
+            tiposdoc.nombreTipDoc, 
+            referencias.nroDoc, 
+            referencias.anioReferencia, 
+            referencias.idSexo, 
+            sexousuario.descSexo, 
+            referencias.apePaterno, 
+            referencias.apeMaterno, 
+            referencias.nombres, 
+            referencias.motivo, 
+            referencias.anamnesis,
+            referencias.estadoAnula, 
+            referencias.idEstado, 
+            estadoref.descEstado, 
+            CONCAT(
+                UPPER( departamentos.nombreDep ),
+                '/',
+                UPPER( provincias.nombreProvincia ),
+                '/',
+            UPPER( distritos.nombreDistrito )) AS ubicacion, 
+            CONCAT(especialidades.nombreEsp) AS nombreEsp
+        FROM
+            referencias
+            left JOIN
+            departamentosh
+            ON 
+                referencias.idDepartamento = departamentosh.idDepartamentoH
+            LEFT JOIN
+            especialidades
+            ON 
+                referencias.idEspecialidad = especialidades.idEspecialidad
+            LEFT JOIN
+            servicios
+            ON 
+                referencias.idServicio = servicios.idServicio
+            INNER JOIN
+            establecimientos
+            ON 
+                referencias.idEstablecimiento = establecimientos.idEstablecimiento
+            INNER JOIN
+            tiposdoc
+            ON 
+                referencias.idTipoDoc = tiposdoc.idTipoDoc
+            INNER JOIN
+            sexousuario
+            ON 
+                referencias.idSexo = sexousuario.idSexo
+            INNER JOIN
+            estadoref
+            ON 
+                referencias.idEstado = estadoref.idEstado
+            INNER JOIN
+            distritos
+            ON 
+                establecimientos.idDistrito = distritos.idDistrito
+            INNER JOIN
+            provincias
+            ON 
+                distritos.idProvincia = provincias.idProvincia
+            INNER JOIN
+            departamentos
+            ON 
+                provincias.idDepartamentos = departamentos.idDepartamento
+                WHERE estadoAnula = 1 AND $item = :$item
+                ORDER BY fechaReferencia DESC");
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetch();
+        } else {
+            $stmt = Conexion::conectar()->prepare("CALL Listar_Referencias()");
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+        //Cerramos la conexion por seguridad
+        $stmt->close();
+        $stmt = null;
+    }
+    
     static public function mdlBuscarReferencias($dni, $anio)
     {
         $stmt = Conexion::conectar()->prepare("CALL Consulta_ReferenciasPaciente(:dni,:anio)");
@@ -17,41 +109,9 @@ class ReferenciasModelo
 
     static public function mdlBuscarReferenciasSIGH($dni, $anio)
     {
-        // $stmt = ConexionConsulta::conectar()->prepare("exec ConsultaRefconWeb @dniUsuario = :dni, @anio = :anio");
-        $stmt = ConexionConsulta::conectar()->prepare("SELECT TOP 1 ReferenciasRefcon.nroReferencia,
-        YEAR(DetalleReferencia.FechaReferencia) as anioReferencia,
-        format ( DetalleReferencia.FechaSolicitud, 'dd/MM/yyyy' ) AS FechaSolicitud,
-        format ( DetalleReferencia.FechaReferencia, 'dd/MM/yyyy' ) AS FechaReferencia,
-        ReferenciasRefcon.tipDocumento,
-        ReferenciasRefcon.dni,
-        DetalleReferencia.IdAtencion,
-        format ( Citas.Fecha, 'dd/MM/yyyy' ) AS FechaCita,
-        Citas.HoraInicio,
-        Citas.HoraFin,
-        Citas.IdEstadoCita,
-        Especialidades.IdDepartamento,
-        DepartamentosHospital.Nombre AS NombDepartamento,
-        Citas.IdEspecialidad,
-        Especialidades.Nombre AS NombEspecialidad,
-        Citas.IdServicio,
-        Servicios.Nombre AS NombreServicio,
-        Servicios.IdTipoServicio 
-    FROM
-        dbo.ReferenciasRefcon
-        INNER JOIN dbo.DetalleReferencia ON ReferenciasRefcon.nroReferencia = DetalleReferencia.NroReferencia
-        INNER JOIN dbo.Citas ON DetalleReferencia.IdAtencion = Citas.IdAtencion
-        INNER JOIN dbo.Servicios ON Citas.IdServicio = Servicios.IdServicio
-        INNER JOIN dbo.Especialidades ON Citas.IdEspecialidad = Especialidades.IdEspecialidad
-        INNER JOIN dbo.DepartamentosHospital ON Especialidades.IdDepartamento = DepartamentosHospital.IdDepartamento
-        WHERE
-	Servicios.IdTipoServicio = 1 
-	AND Citas.IdEstadoCita = 1 AND ReferenciasRefcon.dni = $dni
-    ORDER BY
-	DetalleReferencia.FechaReferencia DESC");
-
-        // $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
-        // $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
-        // $stmt->bindParam(':dni', $dni, PDO::PARAM_STR, 15);
+        $stmt = ConexionConsulta::conectar()->prepare("exec ConsultaRefconWeb @dniUsuario = :dni, @anio = :anio");
+        $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
         $stmt->close();

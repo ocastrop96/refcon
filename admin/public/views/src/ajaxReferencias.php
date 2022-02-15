@@ -34,35 +34,31 @@ class AjaxReferencias
     }
 
     public $dato2;
-    public $datoSex1;
 
     public function ajaxBuscarServicio()
     {
         $valorTermino = $this->dato2;
-        $valorSexo = $this->datoSex1;
 
-        $stmt = Conexion::conectar()->prepare("CALL Buscar_Servicio('$valorTermino',$valorSexo)");
+        $stmt = Conexion::conectar()->prepare("CALL Buscar_Especialidad('$valorTermino')");
         $stmt->execute();
         $data = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $data[] = array("id" => $row['idServicio'], "text" =>  $row['descripcion']);
+            $data[] = array("id" => $row['idEspecialidad'], "text" =>  $row['nombreEsp']);
         }
         echo json_encode($data);
     }
 
     public $dato4;
-    public $datoSex2;
 
     public function ajaxBuscarServicio2()
     {
         $valorTermino = $this->dato4;
-        $valorSexo = $this->datoSex2;
 
-        $stmt = Conexion::conectar()->prepare("CALL Buscar_Servicio('$valorTermino',$valorSexo)");
+        $stmt = Conexion::conectar()->prepare("CALL Buscar_Especialidad('$valorTermino')");
         $stmt->execute();
         $data = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $data[] = array("id" => $row['idServicio'], "text" =>  $row['descripcion']);
+            $data[] = array("id" => $row['idEspecialidad'], "text" =>  $row['nombreEsp']);
         }
         echo json_encode($data);
     }
@@ -107,14 +103,13 @@ if (isset($_POST["searchTerm3"])) {
 if (isset($_POST["searchTerm2"])) {
     $list2 = new AjaxReferencias();
     $list2->dato2 = $_POST["searchTerm2"];
-    $list2->datoSex1 = $_POST["sex1"];
 
     $list2->ajaxBuscarServicio();
 }
 if (isset($_POST["searchTerm4"])) {
     $list5 = new AjaxReferencias();
     $list5->dato4 = $_POST["searchTerm4"];
-    $list5->datoSex2 = $_POST["sex2"];
+    
     $list5->ajaxBuscarServicio2();
 }
 // Busqueda de Servicio
