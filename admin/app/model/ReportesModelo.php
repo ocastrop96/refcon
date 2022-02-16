@@ -4,7 +4,7 @@ class ReportesModelo
 {
     static public function mdlReporteControlReferencias($anio, $mes,$dni)
     {
-        $stmt = Conexion::conectar()->prepare("CALL Reporte_Control_Referencias(:anio,:mes,:dni)");
+        $stmt = Conexion::conectar()->prepare("CALL Reporte_Control_Refcon(:anio,:mes,:dni)");
 
         $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
         $stmt->bindParam(":mes", $mes, PDO::PARAM_INT);

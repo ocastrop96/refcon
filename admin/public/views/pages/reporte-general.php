@@ -80,10 +80,10 @@
           </div>
         </div>
 
-          <a href="public/views/reports/rp-referenciasxls.php?reporte=reporte" class="rg2">
+          <!-- <a href="public/views/reports/rp-referenciasxls.php?reporte=reporte" class="rg2">
             <button type="btn" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Control de  Referencias
             </button>
-          </a>
+          </a> -->
           <a href="public/views/reports/rp-referenciaspdf.php?reporte=reporte" class="rg1">
             <button type="btn" class="btn btn-success"><i class="fas fa-file-excel"></i> Control de  Referencias
             </button>
