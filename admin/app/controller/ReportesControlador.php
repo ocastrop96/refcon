@@ -41,10 +41,10 @@ class ReportesControlador
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["fechaReferencia"] . "</td>
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["descEstado"] . "</td>
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["nroHojaRef"] . "</td>
-                        <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["nombreTipDoc"] . " - ".$item["nroDoc"]."</td>
+                        <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["nombreTipDoc"] . " - " . $item["nroDoc"] . "</td>
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["paciente"] . "</td>
-                        <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["codigoEstab"] . " - ".$item["nombreEstablecimiento"]."</td>
-                        <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["nombreEsp"] . " - ".$item["nombServicio"]."</td>
+                        <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["codigoEstab"] . " - " . $item["nombreEstablecimiento"] . "</td>
+                        <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["nombreEsp"] . " - " . $item["nombServicio"] . "</td>
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["anamnesis"] . "</td>
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["motivo"] . "</td>
                         <td style='padding:0.5em; border:1px solid #ccc;'>" . $item["loginCreador"] . "</td>
@@ -55,5 +55,11 @@ class ReportesControlador
             }
             echo "</table>";
         }
+    }
+
+    static public function ctrReporteReferenciasPDF($anio, $mes, $dni)
+    {
+        $rptListDatos = ReportesModelo::mdlReporteControlReferencias($anio, $mes, $dni);
+        return $rptListDatos;
     }
 }

@@ -5,7 +5,7 @@
                 <img src="public/views/resources/img/refcon-logo.png" class="img-responsive" style="padding:10px 50px 0px 50px">
             </div>
             <div class="card-body">
-                <p class="login-box-msg font-weight-bold h5 text-secondary">Sistema de Gestión de Referencias - HNSEB <br><span class="font-italic h6">v.2022.0201</span></p>
+                <p class="login-box-msg font-weight-bold h5 text-secondary">Sistema de Control de Referencias - HNSEB <br><span class="font-italic h6">v.2022.0201</span></p>
                 <form action="" method="post" id="frmLoginQS">
                     <div id="mensajeLogMR" class="d-none">
                         <div class="alert alert-danger alert-dismissible">

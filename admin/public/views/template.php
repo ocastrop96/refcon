@@ -9,7 +9,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" type="image/x-icon" href="public/views/resources/img/mrms-icon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistema de Gestión de Referencias | REFCON-HNSEB</title>
+    <title>Sistema de Control de Referencias | REFCON-HNSEB</title>
     <!-- CSS -->
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap">

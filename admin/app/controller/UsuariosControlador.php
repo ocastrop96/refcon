@@ -66,7 +66,7 @@ class UsuariosControlador
                                  </script>';
                     }
                     // Validación de habilitación
-                } elseif ($encriptaPass != $rptLogin["login"]) {
+                } elseif ($encriptaPass != $rptLogin["clave"]) {
                     $id = $rptLogin["idUsuario"];
                     $registroIntentos = UsuariosModelo::mdlRegistroIntentos($id);
                     $mensajeIntentos = "";
