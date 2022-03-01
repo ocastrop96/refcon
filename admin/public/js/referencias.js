@@ -768,8 +768,6 @@ $("#edtRefServ").select2(
 
 $("#rgNroRef").on("change", function () {
     var anio = $("#currentYear").val();
-    var dni = $("#rgNdoc").val();
-
     var nro = $(this).val();
     var nroRef = nro.replace(/^(0+)/g, '');
 
@@ -780,7 +778,6 @@ $("#rgNroRef").on("change", function () {
     var datos2 = new FormData();
     datos2.append("anioReferencia2", anio);
     datos2.append("confirmacion22", confirmacion22);
-    datos2.append("dniReferencia2", dni);
     datos2.append("nroReferencia2", nroRef);
     $.ajax({
         url: "public/views/src/ajaxReferencias.php",

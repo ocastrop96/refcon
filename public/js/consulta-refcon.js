@@ -2,11 +2,8 @@ $("#bsqDoc").attr("minlength", "8");
 $("#bsqDoc").attr("maxlength", "15");
 
 $("#bsqDoc").keyup(function () {
-    this.value = (this.value + "").replace(/[^0-9]/g, "");
+    this.value = (this.value + "").replace(/[^a-zA-Z0-9\-]/g, "");
 });
-
-CargarTablaReferenciasProceso($("#bsqDoc").val(), $("#anioActual").val());
-CargarTablaReferenciasCitadas($("#bsqDoc").val(), $("#anioActual").val());
 
 $("#btnDNIUCons").click(function () {
     var dni = $("#bsqDoc").val();
@@ -14,88 +11,21 @@ $("#btnDNIUCons").click(function () {
     if (dni == '') {
         Swal.fire({
             icon: "warning",
-            title: "¡Ingrese N° de Documento de Identidad!",
+            title: "¡Estimado usuario, ingrese N° de Documento de Identidad!",
             showConfirmButton: false,
-            timer: 1600
+            timer: 1800
         });
         $("#bsqDoc").val("");
         $("#bsqDoc").focus();
-        CargarTablaReferenciasProceso(dni, anio);
-        CargarTablaReferenciasCitadas(dni, anio);
+        $("#bloqueRespuesta").html("");
     }
     else {
-        CargarTablaReferenciasProceso(dni, anio);
-        CargarTablaReferenciasCitadas(dni, anio);
+        CargarData(dni, anio)
     }
 
 });
 
-// $(".datatableReferenciasProceso tbody").on("click", ".btnVerMotivo", function () {
-//     var idReferencia = $(this).attr("idReferencia");
-
-//     var datos = new FormData();
-//     datos.append("idReferencia", idReferencia);
-//     alert("xd");
-//     // $.ajax({
-//     //     url: "public/views/src/ajaxConsultas.php",
-//     //     method: "POST",
-//     //     data: datos,
-//     //     cache: false,
-//     //     contentType: false,
-//     //     processData: false,
-//     //     dataType: "json",
-//     //     success: function (respuesta) {
-//     //         console.log(respuesta);
-//     //         // $("#idReferencia").val(respuesta["idReferencia"]);
-
-//     //         // if (respuesta["idTipoDoc"] == 1) {
-//     //         //     $("#btnDniPacEdt").removeClass("d-none");
-
-//     //         // }
-//     //         // else {
-//     //         //     $("#btnDniPacEdt").addClass("d-none");
-
-//     //         // }
-//     //         // $("#edtTipoDoc1").val(respuesta["idTipoDoc"]);
-//     //         // $("#edtTipoDoc1").html(respuesta["nombreTipDoc"]);
-
-//     //         // $("#edtNombresPac").val(respuesta["nombres"]);
-//     //         // $("#edtNdoc").val(respuesta["nroDoc"]);
-//     //         // $("#edtRefAP").val(respuesta["apePaterno"]);
-//     //         // $("#edtRefAM").val(respuesta["apeMaterno"]);
-
-//     //         // $("#edtSexo1").val(respuesta["idSexo"]);
-//     //         // $("#edtSexo1").html(respuesta["descSexo"]);
-
-//     //         // $("#edtNroRefAnt").val(respuesta["nroHojaRef"]);
-
-//     //         // $("#edtNroRef").val(respuesta["nroHojaRef"]);
-
-//     //         // $("#edtFechaRef").val(respuesta["fechaReferencia"]);
-
-//     //         // $("#edtRefEstado1").val(respuesta["idEstado"]);
-//     //         // $("#edtRefEstado1").html(respuesta["descEstado"]);
-
-//     //         // // 05735 - C.S. PROGRESO - LIMA/LIMA/CARABAYLLO
-//     //         // $("#seleccionEESS1").html(respuesta["codigoEstab"] + " - " + respuesta["nombreEstablecimiento"] + " - " + respuesta["ubicacion"]);
-//     //         // $("#edtRefEstable1").val(respuesta["idEstablecimiento"]);
-//     //         // $("#edtRefEstable1").html(respuesta["nombreEstablecimiento"]);
-
-//     //         // $("#seleccionServ1").html(respuesta["nombreEsp"]);
-
-//     //         // $("#edtRefServ1").val(respuesta["idEspecialidad"]);
-//     //         // $("#edtRefServ1").html(respuesta["nombreEsp"]);
-
-//     //         // $("#edtRefMotivo").val(respuesta["motivo"]);
-//     //         // $("#edtRefAnamnesis").val(respuesta["anamnesis"]);
-
-//     //     },
-//     // });
-// });
-
-
 function VerMotivo(idReferencia) {
-    // alert(idReferencia);
     var datos = new FormData();
     datos.append("idReferencia", idReferencia);
 
@@ -119,14 +49,96 @@ function VerMotivo(idReferencia) {
 
 }
 
-function CargarTablaReferenciasProceso(dni, anio) {
+function CargarData(dni, anio) {
+    $.ajax({
+        url: "public/views/src/ajaxConsultas.php",
+        method: "POST",
+        dataType: "json",
+        data: { dni: dni, anio: anio }
+    }).done(function (respuesta) {
+        console.log(respuesta);
+        if (respuesta["galen"] >= 1 && respuesta["local"] == 0) {
+            let stringRpta = "Solicitud(es) con Cita Registrada :    " + respuesta["galen"]
+            Swal.fire({
+                icon: "success",
+                title: "Se encontraron coindicencias para \n" + dni + " :",
+                html: '<pre>' + stringRpta + '</pre>',
+                customClass: {
+                    popup: 'format-pre'
+                },
+                showConfirmButton: false,
+                timer: 2200
+            });
+            $("#bloqueRespuesta").html("");
+            $("#bloqueRespuesta2").html("");
+            CargarTablaReferenciasCitadas(dni, anio, 12);
+
+        }
+
+        else if (respuesta["local"] >= 1 && respuesta["galen"] == 0) {
+            let stringRpta = "Solicitud(es) en Proceso :    " + respuesta["local"]
+            Swal.fire({
+                icon: "success",
+                title: "Se encontraron coindicencias para \n"+dni+" :",
+                html: '<pre>' + stringRpta + '</pre>',
+                customClass: {
+                    popup: 'format-pre'
+                },
+                showConfirmButton: false,
+                timer: 2200
+            });
+            $("#bloqueRespuesta").html("");
+            $("#bloqueRespuesta2").html("");
+
+            CargarTablaReferenciasProceso(dni, anio, 12);
+        }
+
+        else if (respuesta["local"] >= 1 && respuesta["galen"] >= 1) {
+            let stringRpta = "Solicitud(es) en Proceso              :  " + respuesta["local"] + "\n" +
+                "Solicitud(es) con Cita Registrada     :  " + respuesta["galen"] + "\n";
+
+            Swal.fire({
+                icon: "success",
+                title: "Se encontraron coindicencias para \n"+dni+" :",
+                html: '<pre>' + stringRpta + '</pre>',
+                customClass: {
+                    popup: 'format-pre'
+                },
+                showConfirmButton: false,
+                timer: 2200
+            });
+            $("#bloqueRespuesta").html("");
+            $("#bloqueRespuesta2").html("");
+
+            CargarTablaReferenciasProceso(dni, anio, 12);
+            CargarTablaReferenciasCitadas(dni, anio, 12);
+
+        }
+
+        else if (respuesta["local"] >= 0 && respuesta["galen"] == 0) {
+            Swal.fire({
+                icon: "error",
+                title: "¡No se encontró ninguna coincidencia para su búsqueda!",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            $("#bsqDoc").val("");
+            $("#bsqDoc").focus();
+            $("#bloqueRespuesta").html("");
+            $("#bloqueRespuesta2").html("");
+        }
+    }).fail(function () {
+        console.log("error");
+    })
+}
+function CargarTablaReferenciasProceso(dni, anio, sizeWind) {
     $.ajax({
         url: "public/views/src/ajaxConsultas.php",
         method: "POST",
         dataType: "html",
-        data: { dni: dni, anio: anio }
+        data: { dni2: dni, anio2: anio, sizeWind: sizeWind }
     }).done(function (respuesta) {
-        $("#bloque1").html(respuesta);
+        $("#bloqueRespuesta").html(respuesta);
         $(".datatableReferenciasProceso").DataTable({
             deferRender: true,
             retrieve: true,
@@ -141,21 +153,21 @@ function CargarTablaReferenciasProceso(dni, anio) {
                 url: "public/views/resources/js/dataTables.spanish.lang",
             },
         });
-        console.log(respuesta);
     }).fail(function () {
         console.log("error");
     })
 }
 
 
-function CargarTablaReferenciasCitadas(dni, anio) {
+function CargarTablaReferenciasCitadas(dni, anio, sizeWind) {
     $.ajax({
         url: "public/views/src/ajaxConsultas.php",
         method: "POST",
         dataType: "html",
-        data: { dni2: dni, anio2: anio }
+        data: { dni3: dni, anio3: anio, sizeWind2: sizeWind }
     }).done(function (respuesta) {
-        $("#bloque2").html(respuesta);
+        $("#bloqueRespuesta2").html(respuesta);
+        console.log(respuesta);
         $(".datatableReferenciasCitadas").DataTable({
             deferRender: true,
             retrieve: true,
@@ -170,7 +182,6 @@ function CargarTablaReferenciasCitadas(dni, anio) {
                 url: "public/views/resources/js/dataTables.spanish.lang",
             },
         });
-        console.log(respuesta);
     }).fail(function () {
         console.log("error");
     })

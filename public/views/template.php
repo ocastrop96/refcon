@@ -40,6 +40,8 @@ session_start();
 
     <!-- Theme style -->
     <link rel="stylesheet" href="public/views/resources/css/adminlte.css">
+    <link rel="stylesheet" href="public/views/resources/css/extra.css">
+
     <link rel="stylesheet" href="public/views/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- CSS -->
     <!-- JS -->

@@ -1,8 +1,8 @@
 <div class="container-fluid">
-    <div class="card card-success">
+    <div class="card card-outline card-info">
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-2">
                     <div class="form-group">
                         <label>N° de Doc. de Identidad:<span class="text-danger">&nbsp;*</span></label>
                         <div class="input-group">
@@ -16,11 +16,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" id="btnDNIConsulta">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-1" id="btnDNIConsulta">
                     <div class="form-group">
                         <label>Consulta:<span class="text-danger">&nbsp;</span></label>
                         <div class="input-group">
-                            <button type="button" class="btn btn-block btn-success" id="btnDNIUCons"><i class="fas fa-search"></i>&nbsp;Buscar</button>
+                            <button type="button" class="btn btn-block btn-info" id="btnDNIUCons"><i class="fas fa-search"></i>&nbsp;Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -30,29 +30,15 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <div class="card card-lightblue">
-                <div class="card-header">
-                    <h5 class="card-title m-0 font-weight-bold">Solicitudes en proceso </h5>&nbsp;&nbsp;<i class="fas fa-spinner"></i>
-                </div>
-                <div class="card-body" id="bloque1">
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card card-success">
-                <div class="card-header">
-                    <h5 class="card-title m-0 font-weight-bold">Solicitudes con Cita </h5>&nbsp;&nbsp;<i class="fas fa-calendar-check"></i>
-                </div>
-                <div class="card-body" id="bloque2">
-                </div>
-            </div>
-        </div>
-
+    <div id="scripts"></div>
+    <div class="row" id="bloqueRespuesta">
+    </div>
+    <div class="row" id="bloqueRespuesta2">
     </div>
 </div>
 
+
+<!-- Modal para ver motivos de rechazo u observación-->
 <div id="modal-ver-motivo" class="modal fade" role="dialog" aria-modal="true" style="padding-right: 17px;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -115,11 +101,4 @@
         </div>
     </div>
 </div>
-
-<!-- <?php
-    $respuestaPrueba = ReferenciasModelo::mdlBuscarReferenciasxNro(2022,'06849096','5757-00278');
-
-    foreach ($respuestaPrueba as $key => $value) {
-        echo $value["anioReferencia"];
-    }
-?> -->
+<!-- Modal para ver motivos de rechazo u observación-->

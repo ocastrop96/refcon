@@ -218,10 +218,9 @@ class ReferenciasModelo
         $stmt = null;
     }
 
-    static public function mdlBuscarReferenciasxNro2($anio,$dni,$referencia)
+    static public function mdlBuscarReferenciasxNro2($anio,$referencia)
     {
-        $stmt = ConexionConsulta::conectar()->prepare("exec Usp_Select_BuscarReferenciasxNroWeb @anio = :anio, @dni = :dni, @referencia = :referencia");
-        $stmt->bindParam(":dni", $dni, PDO::PARAM_STR);
+        $stmt = ConexionConsulta::conectar()->prepare("exec Usp_Select_BuscarReferenciasxNroWeb @anio = :anio, @referencia = :referencia");
         $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
         $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
         $stmt->execute();

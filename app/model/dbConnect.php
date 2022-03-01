@@ -5,8 +5,8 @@ class Conexion
     {
         $link = new PDO(
             "mysql:host=localhost;dbname=db-refcon",
-            "root",
-            ''
+            "adm-refcon",
+            '4gn&Ar@5@Yg&eamYs#k5'
         );
         $link->exec("set names utf8");
         return $link;

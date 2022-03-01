@@ -31,9 +31,9 @@ class ReferenciasControlador
         return $rptListValidaRef;
     }
 
-    static public function ctrValidarNroReferenciaxGalen($anio, $dni,$referencia)
+    static public function ctrValidarNroReferenciaxGalen($anio,$referencia)
     {
-        $rptListValidaRef = ReferenciasModelo::mdlBuscarReferenciasxNro2($anio, $dni,$referencia);
+        $rptListValidaRef = ReferenciasModelo::mdlBuscarReferenciasxNro2($anio, $referencia);
         return $rptListValidaRef;
     }
 

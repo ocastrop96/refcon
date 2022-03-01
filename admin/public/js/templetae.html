@@ -1,0 +1,42 @@
+<div class="col-6">
+    <div class="card card-lightblue">
+        <div class="card-header">
+            <h5 class="card-title m-0 font-weight-bold">Solicitudes en proceso ()</h5>&nbsp;&nbsp;<i
+                class="fas fa-spinner"></i>
+        </div>
+        <div class="card-body" id="bloque1">
+                <table id="datatableReferenciasProceso" class='table table-bordered table-hover dt-responsive datatableReferenciasProceso'>
+                    <thead>
+                        <tr>
+                            <th style='width: 10px'>#</th>
+                            <th>Año</th>
+                            <th>N° Referencia</th>
+                            <th>Fecha</th>
+                            <th>Est. Origen</th>
+                            <th>Especialidad</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2022</td>
+                            <td>5756-00001</td>
+                            <td>28/02/2022</td>
+                            <td>05756 - C.S. GUSTAVO LANATTA</td>
+                            <td>CARDIOLOGIA</td>
+                            <td><button type="button" class="btn btn-block btn-danger font-weight-bold"
+                                    data-toggle="tooltip" data-placement="left" title="RECHAZADA"><i
+                                        class="fas fa-window-close"></i> &nbsp; RECHAZADA</button></td>
+                            <td><button type="button" class="btn btn-block btn-info font-weight-bold btnVerMotivo"
+                                    idreferencia="1" data-toggle="modal" data-target="#modal-ver-motivo"
+                                    onclick="VerMotivo(1)"><i class="fas fa-eye"></i> &nbsp; VER MOTIVO</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+        </div>
+    </div>
+</div>
