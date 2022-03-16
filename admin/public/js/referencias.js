@@ -136,8 +136,8 @@ $('#rgFechaRef').datepicker({
     'autoclose': true,
     'orientation': 'auto bottom',
     'language': 'es',
-    'startDate': '-7d',
-    'endDate': '+0d'
+    // 'startDate': '-7d',
+    // 'endDate': '+0d'
 });
 
 $("#edtFechaRef").inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
@@ -146,8 +146,8 @@ $('#edtFechaRef').datepicker({
     'autoclose': true,
     'orientation': 'auto bottom',
     'language': 'es',
-    'startDate': '-7d',
-    'endDate': '+0d'
+    // 'startDate': '-7d',
+    // 'endDate': '+0d'
 });
 
 $("#regRefEstable").select2(

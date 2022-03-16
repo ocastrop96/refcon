@@ -1,11 +1,11 @@
 <!-- Head -->
 <div class="container-fluid">
-  <div class="row mb-2 mt-1 align-items-center">
+  <!-- <div class="row mb-2 mt-1 align-items-center">
     <div class="col-12">
       <img src="public/views/resources/img/membrete-seguros.png" width="450" height="80" class="float-left img-fluid my-4" alt="logo-seguros-hnseb">
-    </div>
-  </div>
-  <div class="row align-items-center">
+    </div>  
+  </div> -->
+  <div class="row mb-2 mt-1 align-items-center">
     <div class="col-sm-12 col-md-12 col-12">
       <div class="alert alert-hnseb alert-dismissible">
         <h3 class="font-weight-bold"><i class="icon fas fa-exclamation-circle"></i> ¡Consulta aquí el estado de tu Referencia!</h3>
