@@ -225,7 +225,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 <label for="rgRefAnamnesis">Anamnesis o Motivo de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <textarea cols="30" rows="4" class="form-control" name="rgRefAnamnesis" id="rgRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="200" autocomplete="off" required></textarea>
+                  <textarea cols="30" rows="5" class="form-control" name="rgRefAnamnesis" id="rgRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="400" autocomplete="off" required></textarea>
                 </div>
               </div>
             </div>
@@ -237,7 +237,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 <label for="rgRefMotivo">Motivo de Rechazo u Observación de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <textarea cols="30" rows="4" class="form-control" name="rgRefMotivo" id="rgRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="200" autocomplete="off"></textarea>
+                  <textarea cols="30" rows="5" class="form-control" name="rgRefMotivo" id="rgRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="400" autocomplete="off"></textarea>
                 </div>
               </div>
             </div>
@@ -434,7 +434,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 <label for="edtRefAnamnesis">Anamnesis o Motivo de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <textarea cols="30" rows="2" class="form-control" name="edtRefAnamnesis" id="edtRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="200" autocomplete="off" required></textarea>
+                  <textarea cols="30" rows="4" class="form-control" name="edtRefAnamnesis" id="edtRefAnamnesis" placeholder="Ingrese motivo de la Referencia" maxlength="400" autocomplete="off" required></textarea>
                 </div>
               </div>
             </div>
@@ -445,7 +445,7 @@ if ($_SESSION["loginPerfilRef"] == 4) {
                 <label for="edtRefMotivo">Motivo de Rechazo u Observación de la Referencia: &nbsp;</label>
                 <i class="fas fa-search"></i>
                 <div class="input-group">
-                  <textarea cols="30" rows="2" class="form-control" name="edtRefMotivo" id="edtRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="200" autocomplete="off"></textarea>
+                  <textarea cols="30" rows="4" class="form-control" name="edtRefMotivo" id="edtRefMotivo" placeholder="Ingrese motivo (En caso lo requiera)" maxlength="400" autocomplete="off"></textarea>
                 </div>
               </div>
             </div>

@@ -43,11 +43,19 @@ $("#rgRefAP").keyup(function () {
 });
 
 $("#edtRefAnamnesis").keyup(function () {
-    this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+    this.value = (this.value + "").replace(/[^a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
 });
 
 $("#rgRefAnamnesis").keyup(function () {
-    this.value = (this.value + "").replace(/[^a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+    this.value = (this.value + "").replace(/[^a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+});
+
+$("#rgRefMotivo").keyup(function () {
+    this.value = (this.value + "").replace(/[^a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+});
+
+$("#edtRefMotivo").keyup(function () {
+    this.value = (this.value + "").replace(/[^a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
 });
 
 $("#edtNroRef").keyup(function () {

@@ -62,4 +62,20 @@ class ReportesControlador
         $rptListDatos = ReportesModelo::mdlReporteControlReferencias($anio, $mes, $dni);
         return $rptListDatos;
     }
+
+    static public function ctrListarWidgets($anio){
+        $repuesta = ReportesModelo::mdlListarWidgets($anio);
+        return $repuesta;
+    }
+
+
+    static public function ctrListarRefsxMes($anio){
+        $repuesta = ReportesModelo::mdlListarRefsxMes($anio);
+        return $repuesta;
+    }
+
+    static public function ctrListarRefsxOrigen($anio){
+        $repuesta = ReportesModelo::mdlListarRefsxOrigen($anio);
+        return $repuesta;
+    }
 }

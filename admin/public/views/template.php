@@ -14,7 +14,7 @@ session_start();
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="public/views/plugins/fontawesome-free/css/all.min.css">
+    <!-- <link rel="stylesheet" href="public/views/plugins/fontawesome-free/css/all.min.css"> -->
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Datatables -->
@@ -47,6 +47,7 @@ session_start();
     <!-- jQuery UI 1.11.4 -->
     <script src="public/views/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script src="https://kit.fontawesome.com/a073170c04.js" crossorigin="anonymous"></script>
     <!-- Bootstrap 4 -->
     <script src="public/views/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->

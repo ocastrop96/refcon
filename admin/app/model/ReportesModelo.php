@@ -15,4 +15,41 @@ class ReportesModelo
         $stmt->close();
         $stmt = null;
     }
+
+    static public function mdlListarWidgets($anio)
+    {
+        $stmt = Conexion::conectar()->prepare("CALL CargarContadores(:anio)");
+
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetch();
+        $stmt->close();
+        $stmt = null;
+    }
+
+
+    static public function mdlListarRefsxMes($anio)
+    {
+        $stmt = Conexion::conectar()->prepare("CALL Graph_RefsXMes(:anio)");
+
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll();
+        $stmt->close();
+        $stmt = null;
+    }
+
+    static public function mdlListarRefsxOrigen($anio)
+    {
+        $stmt = Conexion::conectar()->prepare("CALL Graph_RefsXOrigen(:anio)");
+
+        $stmt->bindParam(":anio", $anio, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll();
+        $stmt->close();
+        $stmt = null;
+    }
 }

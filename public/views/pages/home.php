@@ -77,7 +77,7 @@
                                 <label for="edtRefAnamnesis">Anamnesis o Motivo de la Referencia: &nbsp;</label>
                                 <i class="fas fa-search"></i>
                                 <div class="input-group">
-                                    <textarea cols="30" rows="2" class="form-control" name="data3" id="data3" maxlength="200" autocomplete="off" readonly></textarea>
+                                    <textarea cols="30" rows="4" class="form-control" name="data3" id="data3" maxlength="200" autocomplete="off" readonly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <label for="edtRefMotivo">Motivo de Rechazo u Observación de la Referencia: &nbsp;</label>
                                 <i class="fas fa-search"></i>
                                 <div class="input-group">
-                                    <textarea cols="30" rows="2" class="form-control" name="data4" id="data4" maxlength="200" autocomplete="off" readonly></textarea>
+                                    <textarea cols="30" rows="4" class="form-control" name="data4" id="data4" maxlength="200" autocomplete="off" readonly></textarea>
                                 </div>
                             </div>
                         </div>
